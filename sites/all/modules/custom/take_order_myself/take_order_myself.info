@@ -1,0 +1,6 @@
+name = "Take Order myself"
+description = "Commerce cart setting which add capability take order myself"
+core = 7.x
+package = Custom
+dependencies[] = commerce_checkout
+core = "7.x"

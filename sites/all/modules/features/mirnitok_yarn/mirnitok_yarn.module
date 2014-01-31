@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mirnitok Yarn feature.
+ */
+
+include_once 'mirnitok_yarn.features.inc';

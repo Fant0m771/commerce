@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * Implements hook_theme()
+ */ 
+function last_viewed_products_theme() {
+  $output = array(
+    'last_viewed_products_theme' => array(
+      'template' => 'templates/last_viewed_products',
+      'variables' => array(
+        'content' => NULL,
+      ),
+    ),
+  );
+  return $output;
+}
+
+/**
+ * Implements hook_menu()
+ */ 
+function last_viewed_products_menu() {
+  $items['admin/commerce/config/last_viewed_products'] = array(
+    'title' => t('Last Viewed Products'),
+    'description' => t("Setting which product type needs add to block 'Last viewed product'"),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('last_viewed_products_form'),
+    'access arguments' => array('access last viewed products'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+} 
+
+/**
+ * form
+ */ 
+function last_viewed_products_form() {
+  $form = array();
+    
+  $form['viewed_products_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Block last viewed products settings'),
+    '#weight' => 5,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('Choose what content should be shown into block'),
+  );
+   
+  $form['viewed_products_fieldset']['content_type_checkboxes'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Choose product type'),
+    '#options' => get_content_type_for_viewed_products(),
+  );
+  
+  $get_types = get_last_viewed_products_settings();
+  if (!empty($get_types)) {
+    $form['viewed_products_fieldset']['content_type_checkboxes']['#default_value'] = unserialize($get_types);
+  }
+  
+  $form['viewed_products_fieldset']['action']['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+    '#submit' => array('last_viewed_products_form_submit'),
+  );
+  return $form;
+}
+
+/**
+ * Form submit
+ */
+function last_viewed_products_form_submit($form, &$form_state) {
+  $items = NULL;
+  foreach ($form_state['values']['content_type_checkboxes'] as $checkbox) {
+    if ($checkbox !== 0) {
+      $items[] = $checkbox; 
+    }
+  }
+
+  if (!empty($items)) {
+    $serialized = serialize($items);
+    variable_set("last_viewed_products_setting", $serialized);
+    drupal_set_message(t("Data settings was updated"));    
+  }
+  else {
+    variable_set("last_viewed_products_setting", "");
+    drupal_set_message(t("Data settings was updated"));
+  }
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function last_viewed_products_permission() {
+  return array(
+    'access last viewd product' => array(
+      'title' => t('Access Last Viewed Products'),
+      'description' => t('Access the Last Viewed Products admin section.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_node_view())
+ */ 
+function last_viewed_products_node_view($node, $view_mode, $langcode) {
+  if ($view_mode == "full") {
+    //we can add some product type here
+    $product_type = get_last_viewed_products_settings() !== FALSE ? unserialize(get_last_viewed_products_settings()) : 0;
+    if (is_array($product_type) && in_array($node->type, $product_type)) {
+      $image = FALSE;
+
+      if (isset($node->field_display_image_fid[LANGUAGE_NONE][0]['value'])) {
+        $image =  file_load($node->field_display_image_fid[LANGUAGE_NONE][0]['value']);
+        $image = $image->uri;
+      }
+
+      if (isset($node->field_product_variations[LANGUAGE_NONE][0]['product_id'])) {
+        $image = _last_viewed_products_get_product_image($node->field_product_variations[LANGUAGE_NONE][0]['product_id']);
+      }
+      _last_viewed_product_save_to_session($node, $image);
+    }
+  }
+}
+
+/**
+ * Implements hook_block_info()
+ */  
+function last_viewed_products_block_info() {
+  $blocks['last_viewed_products_block'] = array(
+    // info: The name of the block.
+    'info' => t('Last viewed products'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */  
+function last_viewed_products_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'last_viewed_products_block':
+      drupal_add_js(drupal_get_path('module', 'last_viewed_products') . '/js/last_viewed_products.js');
+      $content = _last_viewed_products_content();
+      
+      $block['subject'] = !empty($content) ? t('Last viewed products') : "";
+      $block['content'] = !empty($content) ? $content : "";   
+    }
+  return $block;
+}
+
+/**
+ * @return themed content for block
+ */ 
+function _last_viewed_products_content() {
+  if (isset($_SESSION['last_viewed_products']) && !empty($_SESSION['last_viewed_products'])) {
+    $content = theme('last_viewed_products_theme', array('content' => $_SESSION['last_viewed_products']));
+    return $content;
+  }
+  return "";
+}
+
+/**
+ * get content types for admin viewed product settings
+ * @return array content types
+ */ 
+function get_content_type_for_viewed_products() {
+  $types = db_select('node_type', 'nt')
+  ->fields('nt', array('type', 'description'))
+  ->condition('nt.base', 'node_content')
+  ->execute();
+  
+  foreach ($types as $type) {
+    $items[strtolower($type->type)] = $type->type . " (" . $type->description . ")";
+  }
+  return $items;
+}
+
+/**
+ * get settings
+ * @return serialized array
+ */
+function get_last_viewed_products_settings() {
+  $settings = variable_get("last_viewed_products_setting", FALSE);
+  return $settings;
+}
+
+/**
+ * @param $product_id
+ *   id of product
+ *
+ * @return $image
+ *   uri of image
+ */
+function _last_viewed_products_get_product_image($product_id) {
+  /*$product = db_select('commerce_product', 'cp')
+    ->fields('cp', array('sku'))
+    ->condition('cp.product_id', $product_id)
+    ->execute()->fetchField();
+  $prod_attr = (array) commerce_product_load_by_sku($product);
+  $prod_type = $prod_attr['type'];
+  $image = FALSE;
+  if (isset($prod_attr['field_' . $prod_type . '_image'][LANGUAGE_NONE][0]['uri'])) {
+    $image = $prod_attr['field_' . $prod_type . '_image'][LANGUAGE_NONE][0]['uri'];
+  }
+  */
+  $image = NULL;
+
+  return $image;
+}
+
+/**
+ * Save into session showing product
+ *
+ * @param $prod
+ * @param $image
+ */
+function _last_viewed_product_save_to_session($prod, $image) {
+  $_SESSION['last_viewed_products'][$prod->nid] = array(
+    'title' => $prod->title,
+    'path' => drupal_get_path_alias(),
+  );
+  if ($image) {
+    $_SESSION['last_viewed_products'][$prod->nid]['image'] = image_style_url('small', $image);
+  }
+}

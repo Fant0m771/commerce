@@ -1,0 +1,236 @@
+<?php
+ 
+/**
+ *  Implements hook_form_alter()
+ */
+ /*
+function custom_yarn_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id,'commerce_cart_add_to_cart_form_') !== FALSE) {
+     $form['submit']['#value'] = theme("some_text", array("ptr" => " ", 'prefix' => '&copy;'));
+  }
+}
+*/
+
+/**
+ * Implements hook_theme().
+ */
+function custom_yarn_theme() {
+   $output = array(
+    'some_text' => array(
+      'template' => "custom_yarn",
+      'variables' => array(
+        'ptr' => NULL,
+        'prefix' => NULL,
+      ),
+    ),
+    'form_add_to_cart' => array(
+      'render element' => 'form',
+      'template' => "templates/form_add_to_cart_form",
+    ),
+    'yarn_chosen_elements_filter' => array(
+      'template' => "templates/yarn_chosen_elements_filter",
+      'variables' => array(
+        'chosen_elements' => NULL,
+      ),
+    ),
+  );
+  return $output; 
+}
+
+function custom_yarn_init() {
+  drupal_add_library('system', 'ui.tabs');
+  //drupal_add_js(array('pickerColorYarn' => _custom_yarn_get_color()), 'setting');
+}
+
+function custom_yarn_node_view($node, $view_mode, $langcode) {
+  if (isset($node->content['#groups']['group_yarn_comments'])) {
+    //$node->content['#groups']['group_yarn_comments']->label = $node->content['#groups']['group_yarn_comments']->label ." (" . $node->comment_count . ") ";
+  }
+}
+
+
+/**
+ * Implements hook_form_alter()
+ */  
+function custom_yarn_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  if (strstr($form_id, "commerce_cart_add_to_cart_form_") != "" && arg(0) != "user") {
+    if (module_exists("commerce_ajax_basket_link")) {
+      $form['submit']["#ajax"] = array(
+        'callback' => 'custom_yarn_basket_link_ajax_cart_form_add_to_cart_ajax_callback',
+        'effect' => 'fade',
+      );
+    }
+  }
+  elseif ($form_id == "user_login_block") {
+    $form['name']['#attributes'] = array(
+      'placeholder' => t('Your login'),
+    );
+    $form['pass']['#attributes'] = array(
+      'placeholder' => t('Your password'),
+    );
+    unset($form['links']);
+  }
+  return $form;
+}
+
+
+/**
+ * Update cart block after product added to cart via ajax
+ *
+ * @param $form
+ * @param $form_state
+ * @return array
+ */
+function custom_yarn_basket_link_ajax_cart_form_add_to_cart_ajax_callback(&$form, &$form_state) {
+  // Get edit-submit ID
+  $submit_id = $form['submit']['#id'];
+
+  // Basket items into top nav.
+  $output = commerce_ajax_basket_link_static_output();
+  $output['#markup'] = '<div class="content clearfix">' . $output['#markup'] . '</div>';
+  $commands[] = ajax_command_replace('#' . $submit_id, '<div class="item-into-cart">' . l(t('Item added to basket'), 'cart') . '</div>');
+  $commands[] = ajax_command_replace('#block-commerce-ajax-basket-link-commerce-ajax-basket-link .content', $output['#markup']);
+  $commands[] = ajax_command_invoke('.block-commerce-cart .block-refresh-button', 'click');
+  $commands[] = ajax_command_replace('.messages', theme('status_messages'));
+
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+
+/**
+ * Implements hook_block_info()
+ */  
+function custom_yarn_block_info() {    
+  $blocks['yarn_chosen_elements_block'] = array(
+    // info: The name of the block.
+    'info' => t('Yarn chosen elements'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */  
+function custom_yarn_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'yarn_chosen_elements_block':
+      $content = _custom_yarn_block_content();
+      
+      $block['subject'] = !empty($content) ? t('Chosen elements') : "";
+      $block['content'] = !empty($content) ? $content : "";   
+    }
+  return $block;
+}
+
+/**
+ * return content for 'yarn_chosen_elements_block' block
+ */ 
+function _custom_yarn_block_content() {
+  //$names = variable_get('yarn_chosen_elements');
+  return 0;
+  if (isset($_GET['id'])) {
+    unset($_GET['id']);
+  }
+
+  $view_chosen = $_GET;
+  unset($view_chosen['q']);
+   
+  foreach($view_chosen as $key1 => $choose) {
+    $key1 = str_replace('_', '-', $key1) . "-";
+     
+    foreach($choose as $tid) {        
+      $term = taxonomy_term_load($tid);
+      $names[taxonomy_vocabulary_load($term->vid)->name][$key1 . $tid] = $term->name;
+    }
+  }
+
+  if(isset($names) && count($names) > 0) {
+    $content = theme("yarn_chosen_elements_filter", array('chosen_elements' => $names));
+    return $content;
+  }
+  return "";
+}
+
+/**
+ * Implementation of hook_popup_attributes_alter to provide defaults
+ */
+function custom_yarn_popup_attributes_alter(&$attributes){
+  // if mein-menu block (block-block-2)
+  if ($attributes['delta'] == 2) {
+    $attributes['class'] = 'whole-width';
+
+    drupal_add_js(drupal_get_path('theme', "yarn") . "/js/popup-fix.js", array(
+      'scope' => 'footer',
+    ));
+  }
+  module_load_include('inc', 'popup', 'includes/popup.util');
+
+  $defaults = _popup_defaults();
+  $attributes = array_merge(
+    $defaults,
+    $attributes
+  );
+}
+
+/**
+ *  Implements hook_node_presave.
+ * @param $node
+ */
+function custom_yarn_node_presave($node) {
+
+  $fields = FALSE;
+  if (isset($node->field_product_variations)) {  // yarn display
+    $fields = $node->field_product_variations;
+    $display_image_fid = _custom_yarn_get_product_image($fields[LANGUAGE_NONE][0], 'yarn');
+  } elseif(isset($node->field_needles_product_variations)) {    // needles display
+    $fields = $node->field_needles_product_variations;
+    $display_image_fid = _custom_yarn_get_product_image($fields[LANGUAGE_NONE][0], 'needles');
+  }
+
+  if ($fields) {
+    if ($display_image_fid) {
+      // set Display image for last viewed products modules
+      $node->field_display_image_fid[LANGUAGE_NONE][0]['value'] = $display_image_fid;
+    }
+    $sale_prod = _custom_yarn_check_sale($fields[LANGUAGE_NONE]);
+    if ($sale_prod) {
+      $node->field_product_sale_product[LANGUAGE_NONE][0]['value'] = 1;
+    }
+    else {
+      $node->field_product_sale_product[LANGUAGE_NONE][0]['value'] = 0;
+    }
+  }
+}
+
+/**
+ * check if display have sale product
+ */
+function _custom_yarn_check_sale($products) {
+  foreach ($products as $product) {
+    $entity[] = $product['product_id'];
+  }
+  if (count($entity)) {
+    $res = db_select('field_data_field_commerce_saleprice_on_sale', 'sale')
+      ->fields('sale', array('entity_id'))
+      ->condition('sale.entity_id', $entity, 'IN')
+      ->condition('sale.field_commerce_saleprice_on_sale_value', 1)
+      ->execute()->rowCount();
+    return $res;
+  }
+  return FALSE;
+}
+
+
+function _custom_yarn_get_product_image($entity, $produst_type) {
+  $fid = db_select('field_data_field_' . $produst_type . '_image', 'pr_f')
+    ->fields('pr_f', array('field_' . $produst_type .'_image_fid'))
+    ->condition('pr_f.entity_id', $entity['product_id'])
+    ->execute()
+    ->fetchField();
+  return $fid;
+}

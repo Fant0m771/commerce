@@ -1,0 +1,13 @@
+diff --git "a/C:\\Users\\Denis\\AppData\\Local\\Temp\\TortoiseGit\\bet26A2.tmp\\better_messages-29dad34-left.js" "b/E:\\wamp\\www\\commerce\\sites\\all\\modules\\contrib\\better_messages\\better_messages.js"
+index 1cd125b..549bf4e 100644
+--- "a/C:\\Users\\Denis\\AppData\\Local\\Temp\\TortoiseGit\\bet26A2.tmp\\better_messages-29dad34-left.js"
++++ "b/E:\\wamp\\www\\commerce\\sites\\all\\modules\\contrib\\better_messages\\better_messages.js"
+@@ -25,7 +25,7 @@
+ 				}
+ 				betterMessages.close = function() {
+ 					switch (betterMessages.popout.effect) {
+-						case 'fadeOut': message_box.fadeOut(betterMessages.popout.duration);
++						case 'fadeOut': message_box.parent('div').before("<div class='messages'></div>"); message_box.parent('div').remove();
+ 							break;
+ 						case 'slideUp':	message_box.slideUp(betterMessages.popout.duration);
+ 							break;

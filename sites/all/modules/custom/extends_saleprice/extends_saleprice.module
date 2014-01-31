@@ -1,0 +1,137 @@
+<?php
+/**
+ * @file
+ */
+
+/*
+ * Implements hook_menu().
+ */
+function extends_saleprice_menu() {
+  $items['admin/commerce/config/extends-sale-price'] = array(
+    'title' => t('Extends Sale Price'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_extends_saleprice_view_form'),
+    'access arguments' => array('access extends saleprice'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function _extends_saleprice_view_form() {
+  $form = array();
+  /*
+  //kpr($form); exit;
+  $res = null;
+  $vid = isset($form['vid']['#value']) ? $form['vid']['#value'] : null;
+  $res = _get_file_id_by_vocabulary($vid);
+
+  //var_dump($res);  exit;
+  if (!empty($res)) {
+    $file_uri = file_load($res)->uri;
+    $file = file_create_url($file_uri);
+  }
+    */
+  $form['extends_saleprice_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Upload image'),
+    '#weight' => 5,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('Choose what content should be shown into block'),
+  );
+
+  $form['extends_saleprice_fieldset']['image_file'] = array(
+    '#type' => isset($file) ? 'submit' : 'managed_file',
+    '#title' => isset($file) ? t("Your image") : t("Choose a image"),
+    '#description' => t("Upload 'Sale' image"),
+  );
+
+  if (isset($file)) {
+    $form['image_file']['#value'] = t("Delete image");
+    $form['image_file']['#prefix'] = "<a href='" . file_create_url($file) . "'><img width='200px' src='". file_create_url($file)."' /></a>";
+  }
+  else {
+    $form['image_file']['#upload_location'] = 'public://vacabulary_images/';
+    $form['image_file']['#upload_validators'] = array(
+      'file_validate_extensions' => array('gif png jpg jpeg'),
+    );
+  }
+
+  // add to end form submit
+  $form['#submit'][] = 'taxonomy_vocabulary_image_form_submit';
+
+  return $form;
+
+}
+
+/**
+ * Implements hook_theme().
+ */
+function extends_saleprice_theme() {
+  $output = array(
+    'old_price' => array(
+      'template' => "templates/extends_saleprice_old_price",
+      'variables' => array(
+        'price' => NULL,
+        'new_price' => NULL,
+        'image' => drupal_get_path('module',  'extends_saleprice') . '/sale_image.png',
+      ),
+    ),
+  );
+  return $output;
+}
+
+/**
+ * Implements hook_form_alter()
+ */
+function extends_saleprice_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+  if (strstr($form_id, "commerce_cart_add_to_cart_form_") != "" && arg(0) != "user") {
+    $form = _extends_saleprice_change_price_place($form);
+  }
+}
+
+function _extends_saleprice_change_price_place($form) {
+  $prod_id = isset($form['product_id']['#value']) ? $form['product_id']['#value'] : $form['product_id']['#default_value'];
+  $fields = _extends_saleprice_get_product_fields($prod_id);
+  $stock = TRUE;
+  if (isset($fields['commerce_stock'])) {
+    $stock = $fields['commerce_stock'][LANGUAGE_NONE][0]['value'];
+  }
+
+  $current_price = $fields['commerce_price'][LANGUAGE_NONE][0];
+  $price = commerce_currency_format($current_price['amount'], $current_price['currency_code']);
+
+  $attr = "current_price";
+  $attr .= $stock == TRUE ? " in-stock" : " out-of-stock";
+
+  $form['price_current'] = array(
+    '#markup' => $price,
+    '#prefix' => "<div class='". $attr . "'>",
+    '#suffix' => '</div>',
+  );
+  if (isset($prod_id) && module_exists('commerce_saleprice') && $stock) {
+    if (isset($fields['field_commerce_saleprice_on_sale'][LANGUAGE_NONE][0]['value']) && $fields['field_commerce_saleprice_on_sale'][LANGUAGE_NONE][0]['value']) {
+      $new_price = commerce_currency_format($fields['field_commerce_saleprice'][LANGUAGE_NONE][0]['amount'], $fields['field_commerce_saleprice'][LANGUAGE_NONE][0]['currency_code']);
+      unset($form['price_current']);
+      $form['sales_old_price'] = array(
+        '#markup' => theme('old_price', array('price' => $price, 'new_price' => $new_price, 'image' => drupal_get_path('module',  'extends_saleprice') . '/sale_image.png')),
+      );
+    }
+  }
+  return $form;
+}
+
+/*
+ * Get product field by product id
+ */
+function _extends_saleprice_get_product_fields($product_id) {
+  $product = db_select('commerce_product', 'cp')
+    ->fields('cp', array('sku'))
+    ->condition('cp.product_id', $product_id)
+    ->execute()->fetchField();
+
+  $prod_fields = (array) commerce_product_load_by_sku($product);
+  return $prod_fields;
+}
+

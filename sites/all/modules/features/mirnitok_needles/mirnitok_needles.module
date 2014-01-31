@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mirnitok Needles feature.
+ */
+
+include_once 'mirnitok_needles.features.inc';

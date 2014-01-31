@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mirnitok site settings feature.
+ */
+
+include_once 'mirnitok_site_settings.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mirnitok Commerce feature.
+ */
+
+include_once 'mirnitok_commerce.features.inc';

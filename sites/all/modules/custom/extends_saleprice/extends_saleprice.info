@@ -1,0 +1,10 @@
+name = Extends Commerce Sale Price
+description = Allows a product to be configured with a sale price that can be manually enabled/disabled.
+core = 7.x
+package = Custom
+php = 5.2.4
+dependencies[] = commerce_saleprice
+core = "7.x"
+project = "extends_saleprice"
+
+

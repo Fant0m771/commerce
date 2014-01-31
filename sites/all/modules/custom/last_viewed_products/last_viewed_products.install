@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function last_viewed_products_uninstall() {
+  // Delete variables.
+  variable_del('last_viewed_products_setting');
+}

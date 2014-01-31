@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * Implements hook_form_alter()
+ */  
+function take_order_myself_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  switch ($form_id) {
+    case "commerce_checkout_form_checkout":
+
+      $form = _take_order_myself_fix_shipping_form($form);
+      $form = _take_order_myself_switch_method($form);
+
+      break;
+  }
+
+  return $form;
+}
+
+function _take_order_myself_fix_shipping_form($form) {
+  if (isset($form["customer_profile_shipping"])) {
+
+    // add stores to stores list
+    /*
+    drupal_add_js(drupal_get_path('module', 'take_order_myself') . '/js/billing_order.js');
+    $addresses = _take_order_myself_get_store_list();
+    $stores = array();
+    foreach ($addresses as $key => $address) {
+      $stores[$address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value']] =
+        $address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" .t("show on map") . "</span>";
+    }
+    $form['customer_profile_shipping']['field_customer_ship_strores_list'][LANGUAGE_NONE]['#options'] = $stores;
+    $form['customer_profile_shipping']['field_customer_ship_strores_list'][LANGUAGE_NONE]['#attributes']['class'] = array('addresses');
+    // cancel stores list
+    */
+
+    $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#title'] = t("Address");
+    $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#attributes'] = array('class' => array('can-disable'));
+    $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#weight'] = 1;
+
+    $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]["locality_block"]['locality']['#attributes'] = array('class' => array('can-disable'));
+
+    unset($form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']["premise"]);
+    unset($form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]["locality_block"]['postal_code']);
+    unset($form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]["locality_block"]['administrative_area']);
+
+  }
+  return $form;
+}
+
+
+function _take_order_myself_switch_method($form) {
+
+  drupal_add_js(drupal_get_path('module', 'take_order_myself') . '/js/billing_order.js');
+  if ($form['customer_profile_shipping']) {
+    $form['customer_profile_shipping']['#weight'] = 2;
+  }
+
+  $form['buttons']['#weight'] = 3;
+  $form['myself_fildset'] = array(
+    '#type' => 'fieldset',
+    //'#prefix' => views_embed_view('stores'),
+    '#title' => t("Take order"),
+    '#weight' => 1,
+
+  );
+
+
+
+  $addresses = _take_order_myself_get_store_list();
+  $stores = array();
+  /*
+  foreach ($addresses as $key => $address) {
+    $stores[$address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value']] =
+     "<span data-address=" . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " data-city=" . $address->field_store_city[LANGUAGE_NONE][0]['value'] . " >"
+      . $address->field_store_city[LANGUAGE_NONE][0]['value'] . ", "
+      . $address->field_store_address[LANGUAGE_NONE][0]['value']
+     . "</span>"
+     . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>";
+  }
+  */
+  foreach ($addresses as $key => $address) {
+    $form['myself_fildset']['store_adresses'][] = array(
+      '#type' => 'radio',
+      '#name' => 'store-addresses',
+
+      '#title' => $address->field_store_city[LANGUAGE_NONE][0]['value'] . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>",
+      '#attributes' => array(
+        'class' => array('addresses'),
+        'data-city' => $address->field_store_city[LANGUAGE_NONE][0]['value'],
+        'data-address' => $address->field_store_address[LANGUAGE_NONE][0]['value'],
+      ),
+    );
+  }
+
+ return $form;
+}
+
+/**
+ * Get list stores
+ */
+function _take_order_myself_get_store_list() {
+  
+   // Get nodes which have store content type 
+  $query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'node')
+  ->propertyCondition('type', 'store')
+  ->propertyCondition('status', 1)
+  ->execute();
+  $nodes = array();
+
+  if (!empty($entities['node'])) {
+    foreach ($entities['node'] as $element) {
+      $nodes[] = node_load($element->nid);
+    }
+  }
+
+  return $nodes;
+}

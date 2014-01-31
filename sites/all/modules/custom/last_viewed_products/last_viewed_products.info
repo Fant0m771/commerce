@@ -1,0 +1,6 @@
+name = "Last viewed products"
+description = "Commerce can show last viewed products for logged users "
+core = 7.x
+package = Custom
+dependencies[] = commerce
+core = "7.x"

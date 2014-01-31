@@ -1,0 +1,17 @@
+name = Commerce Fees
+description = Implement a system for add custom fees to an order.
+package = Commerce (contrib)
+core = 7.x
+
+configure = admin/commerce/config/fees
+
+dependencies[] = commerce
+dependencies[] = commerce_line_item
+dependencies[] = rules
+
+; Information added by drupal.org packaging script on 2013-09-30
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce_fees"
+datestamp = "1380560240"
+

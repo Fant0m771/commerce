@@ -1,0 +1,12 @@
+/* This file will hold styles that are loaded using the same media query as the wide grid. */
+ul.nice-menu-down li ul {
+  width: 1179px;
+}
+
+#zone-menu .container-12 .grid-12 {
+  width: 1200px;
+}
+
+#block-views-taxonomy-list-of-term-block li.term-row {
+  width: 181px;
+}
