@@ -1,6 +1,8 @@
 /* This file will hold styles that are loaded using the same media query as the normal grid. */
 /* If you are using the default media queries provided by Omega, these styles will also
  *  apply to the widescreen layout unless they are overridden by the widescreen styles. */
+
+/* -- min-width 980px --*/
 ul.nice-menu-down li ul {
   width: 940px;
 }
@@ -8,3 +10,8 @@ ul.nice-menu-down li ul {
 #block-views-taxonomy-list-of-term-block li.term-row {
   width: 218px;
 }
+
+body {
+  background: #1e90ff;
+}
+

@@ -2,8 +2,22 @@
 /* If you are using the default media queries provided by Omega, these styles will also
  *  apply to the normal and widescreen layouts. You may override these styles in the normal 
  *  and widescreen CSS files as appropriate. */
+/* -- min-width 740px  max-width 979 --*/
 ul.nice-menu-down li ul {
   width: 700px;
 }
 
+.page-node-9 #region-content .block-block {
+  width: 100%;
+  float: none;
+  margin-bottom: 10px;
+}
+
+.page-node-9 #region-content .block-block.odd {
+  margin-right: 0;
+}
+
+#block-views-taxonomy-list-of-term-block li.term-row {
+  width: 158px;
+}
 
