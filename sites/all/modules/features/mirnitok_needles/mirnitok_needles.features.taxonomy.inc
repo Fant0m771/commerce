@@ -10,12 +10,14 @@
 function mirnitok_needles_taxonomy_default_vocabularies() {
   return array(
     'material' => array(
-      'name' => 'Material',
+      'name' => 'Материал',
       'machine_name' => 'material',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
+      'language' => 'und',
+      'i18n_mode' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -33,12 +35,14 @@ function mirnitok_needles_taxonomy_default_vocabularies() {
       ),
     ),
     'needles_type' => array(
-      'name' => 'Needles type',
+      'name' => 'Тип спиц',
       'machine_name' => 'needles_type',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
+      'language' => 'und',
+      'i18n_mode' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -56,12 +60,14 @@ function mirnitok_needles_taxonomy_default_vocabularies() {
       ),
     ),
     'size_needles' => array(
-      'name' => 'Size needles',
+      'name' => 'Номер',
       'machine_name' => 'size_needles',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
+      'language' => 'und',
+      'i18n_mode' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',

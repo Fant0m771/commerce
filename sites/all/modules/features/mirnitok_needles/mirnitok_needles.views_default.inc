@@ -22,7 +22,7 @@ function mirnitok_needles_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Sale needles';
+  $handler->display->display_options['title'] = 'Распродажа спиц';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'ещё';
   $handler->display->display_options['access']['type'] = 'perm';
@@ -34,8 +34,10 @@ function mirnitok_needles_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
   $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
   $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Элементов на страницу';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
   $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
@@ -110,7 +112,7 @@ function mirnitok_needles_views_default_views() {
   $handler->display->display_options['path'] = 'sale/needles';
   $translatables['needles_list'] = array(
     t('Master'),
-    t('Sale needles'),
+    t('Распродажа спиц'),
     t('ещё'),
     t('Применить'),
     t('Сбросить'),
@@ -125,6 +127,7 @@ function mirnitok_needles_views_default_views() {
     t('следующая ›'),
     t('последняя »'),
     t('Needles list'),
+    t('Sale needles'),
   );
   $export['needles_list'] = $view;
 

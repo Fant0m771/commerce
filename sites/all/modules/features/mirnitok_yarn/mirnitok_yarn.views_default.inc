@@ -188,17 +188,16 @@ function mirnitok_yarn_views_default_views() {
       ),
     ),
   );
-  $handler->display->display_options['pager']['type'] = 'infinite_scroll';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '2';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Элементов на страницу';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
   $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
   $handler->display->display_options['pager']['options']['tags']['first'] = '« первая';
-  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ предыдущая';
-  $handler->display->display_options['pager']['options']['tags']['next'] = 'следующая ›';
+  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹';
+  $handler->display->display_options['pager']['options']['tags']['next'] = '›';
   $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
@@ -243,7 +242,7 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'field_product_yarn_brand_tid';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
@@ -419,14 +418,15 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'field_product_yarn_brand_tid';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'brand';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    4 => 0,
   );
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['vocabulary'] = 'brand';
@@ -439,12 +439,13 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator_id'] = 'field_product_yarn_length_tid_op';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['label'] = 'Длина';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator'] = 'field_product_yarn_length_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'field_product_yarn_length_tid';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'length';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    4 => 0,
   );
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
@@ -456,12 +457,13 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator_id'] = 'field_product_yarn_category_tid_1_op';
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['label'] = 'Категория';
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator'] = 'field_product_yarn_category_tid_1_op';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['identifier'] = 'field_product_yarn_category_tid_1';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['identifier'] = 'category';
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    4 => 0,
   );
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['type'] = 'select';
   $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['vocabulary'] = 'tags';
@@ -473,12 +475,13 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator_id'] = 'field_product_yarn_weight_tid_op';
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['label'] = 'Вес';
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator'] = 'field_product_yarn_weight_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'field_product_yarn_weight_tid';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'weight';
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
+    4 => 0,
   );
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_product_yarn_weight_tid']['vocabulary'] = 'weight';
@@ -492,7 +495,7 @@ function mirnitok_yarn_views_default_views() {
   /* Display: Sale yarn */
   $handler = $view->new_display('page', 'Sale yarn', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Sale Yarn';
+  $handler->display->display_options['title'] = 'Распродажа пряжи';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
@@ -591,7 +594,7 @@ function mirnitok_yarn_views_default_views() {
   );
   $handler->display->display_options['filters']['field_product_sale_product_value']['group'] = 1;
   $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['operator_id'] = 'field_product_sale_product_value_op';
-  $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['label'] = 'Sale';
+  $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['label'] = 'Распродажа';
   $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['operator'] = 'field_product_sale_product_value_op';
   $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['identifier'] = 'field_product_sale_product_value';
   $handler->display->display_options['filters']['field_product_sale_product_value']['expose']['remember_roles'] = array(
@@ -606,7 +609,7 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'field_product_yarn_brand_tid';
   $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
@@ -671,18 +674,18 @@ function mirnitok_yarn_views_default_views() {
     t('- Все -'),
     t('Пропустить'),
     t('« первая'),
-    t('‹ предыдущая'),
-    t('следующая ›'),
+    t('‹'),
+    t('›'),
     t('последняя »'),
     t('No match found'),
-    t('Brand'),
+    t('Бренд'),
     t('Длина'),
     t('Категория'),
     t('Вес'),
     t('Yarn'),
     t('Sale yarn'),
-    t('Sale Yarn'),
-    t('Sale'),
+    t('Распродажа пряжи'),
+    t('Распродажа'),
   );
   $export['yarn_list'] = $view;
 
