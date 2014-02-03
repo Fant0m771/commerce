@@ -24,7 +24,6 @@ function mirnitok_yarn_field_group_info() {
     'weight' => '12',
     'children' => array(
       0 => 'field_product_sale_product',
-      1 => 'field_display_image_fid',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

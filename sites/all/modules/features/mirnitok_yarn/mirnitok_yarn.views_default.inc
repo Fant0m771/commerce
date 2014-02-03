@@ -28,12 +28,33 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
   $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
   $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
   $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'allow_secondary' => 0,
+      'secondary_label' => 'Дополнительные настройки',
+    ),
+    'field_yarn_color_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+  );
   $handler->display->display_options['pager']['type'] = 'mini';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -133,6 +154,10 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_yarn_color']['id'] = 'field_yarn_color';
   $handler->display->display_options['fields']['field_yarn_color']['table'] = 'field_data_field_yarn_color';
   $handler->display->display_options['fields']['field_yarn_color']['field'] = 'field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['label'] = '';
+  $handler->display->display_options['fields']['field_yarn_color']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_yarn_color']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_yarn_color']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_yarn_color']['type'] = 'taxonomy_term_reference_plain';
   /* Поле: Commerce Товар: Price */
   $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
@@ -174,9 +199,129 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
+  /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
+  $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['field'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator_id'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['label'] = 'Цвет';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['identifier'] = 'color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
 
   /* Display: Relative yarn products */
   $handler = $view->new_display('block', 'Relative yarn products', 'block');
+
+  /* Display: Products yarn */
+  $handler = $view->new_display('page', 'Products yarn', 'page_products_yarn');
+  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
+  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
+  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
+  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'allow_secondary' => 0,
+      'secondary_label' => 'Дополнительные настройки',
+    ),
+    'field_yarn_color_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_product_yarn_length_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+  );
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+  /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
+  $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['field'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator_id'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['label'] = 'Цвет';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['identifier'] = 'color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
+  /* Критерий фильтра: Содержимое: Length (field_product_yarn_length) */
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['id'] = 'field_product_yarn_length_tid';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['table'] = 'field_data_field_product_yarn_length';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['field'] = 'field_product_yarn_length_tid';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator_id'] = 'field_product_yarn_length_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['label'] = 'Длина';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator'] = 'field_product_yarn_length_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'length';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
+  $handler->display->display_options['path'] = 'products/yarn';
+
+  /* Display: Products needles */
+  $handler = $view->new_display('page', 'Products needles', 'page_2');
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['path'] = 'products/needles';
   $translatables['relative_products'] = array(
     t('Master'),
     t('Relative products'),
@@ -194,9 +339,12 @@ function mirnitok_yarn_views_default_views() {
     t('следующая ›'),
     t('последняя »'),
     t('Материал referencing products from field_product_variations'),
-    t('Цвет'),
     t('Все'),
+    t('Цвет'),
     t('Relative yarn products'),
+    t('Products yarn'),
+    t('Длина'),
+    t('Products needles'),
   );
   $export['relative_products'] = $view;
 
