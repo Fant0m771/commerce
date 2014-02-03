@@ -11,6 +11,196 @@ function mirnitok_yarn_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'relative_products';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'commerce_product';
+  $view->human_name = 'Relative products';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Relative products';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'ещё';
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
+  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
+  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
+  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Элементов на страницу';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
+  $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
+  $handler->display->display_options['pager']['options']['tags']['first'] = '« первая';
+  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ предыдущая';
+  $handler->display->display_options['pager']['options']['tags']['next'] = 'следующая ›';
+  $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'product_id' => 'product_id',
+    'path' => 'path',
+    'commerce_price' => 'commerce_price',
+    'field_yarn_image' => 'field_yarn_image',
+    'field_yarn_color' => 'field_yarn_color',
+    'add_to_cart_form' => 'add_to_cart_form',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'product_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'path' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'commerce_price' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_yarn_image' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_yarn_color' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'add_to_cart_form' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  /* Связь: Commerce Товар: Referencing Материал */
+  $handler->display->display_options['relationships']['field_product_variations']['id'] = 'field_product_variations';
+  $handler->display->display_options['relationships']['field_product_variations']['table'] = 'commerce_product';
+  $handler->display->display_options['relationships']['field_product_variations']['field'] = 'field_product_variations';
+  $handler->display->display_options['relationships']['field_product_variations']['required'] = TRUE;
+  /* Поле: Commerce Товар: ID товара */
+  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['label'] = '';
+  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
+  /* Поле: Содержимое: Путь */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['path']['label'] = '';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['path']['absolute'] = TRUE;
+  /* Поле: Commerce Товар: Картинка */
+  $handler->display->display_options['fields']['field_yarn_image']['id'] = 'field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['table'] = 'field_data_field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['field'] = 'field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['label'] = '';
+  $handler->display->display_options['fields']['field_yarn_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_yarn_image']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_yarn_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_yarn_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_yarn_image']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_yarn_image']['delta_offset'] = '0';
+  /* Поле: Commerce Товар: Цвет */
+  $handler->display->display_options['fields']['field_yarn_color']['id'] = 'field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['table'] = 'field_data_field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['field'] = 'field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['type'] = 'taxonomy_term_reference_plain';
+  /* Поле: Commerce Товар: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Поле: Commerce Товар: Форма добавления в корзину */
+  $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
+  $handler->display->display_options['fields']['add_to_cart_form']['field'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['label'] = '';
+  $handler->display->display_options['fields']['add_to_cart_form']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['add_to_cart_form']['show_quantity'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['default_quantity'] = '1';
+  $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
+  $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  /* Контекстный фильтр: Содержимое: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['exception']['title'] = 'Все';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+
+  /* Display: Relative yarn products */
+  $handler = $view->new_display('block', 'Relative yarn products', 'block');
+  $translatables['relative_products'] = array(
+    t('Master'),
+    t('Relative products'),
+    t('ещё'),
+    t('Применить'),
+    t('Сбросить'),
+    t('Сортировать по'),
+    t('По возрастанию'),
+    t('По убыванию'),
+    t('Элементов на страницу'),
+    t('- Все -'),
+    t('Пропустить'),
+    t('« первая'),
+    t('‹ предыдущая'),
+    t('следующая ›'),
+    t('последняя »'),
+    t('Материал referencing products from field_product_variations'),
+    t('Цвет'),
+    t('Все'),
+    t('Relative yarn products'),
+  );
+  $export['relative_products'] = $view;
+
+  $view = new view();
   $view->name = 'yarn_displays_list';
   $view->description = '';
   $view->tag = 'default';
