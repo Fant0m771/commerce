@@ -4,3 +4,16 @@ sites/*/settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+/*
+.idea/*
+/.idea/libraries
+/.idea/scopes
+/.idea/commerce.iml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/dictionaries
+/.idea\scopes/scope_settings.xml
+/.idea\libraries/sass_stdlib.xml
+/.idea\dictionaries/.xml
