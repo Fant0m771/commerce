@@ -322,6 +322,49 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'products/needles';
+
+  /* Display: Products sale yarn */
+  $handler = $view->new_display('page', 'Products sale yarn', 'page_products_sale_yarn');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Распродажа';
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+  /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
+  $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['field'] = 'field_yarn_color_tid';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator_id'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['label'] = 'Цвет';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator'] = 'field_yarn_color_tid_op';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['identifier'] = 'color';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
+  /* Критерий фильтра: Commerce Товар: On sale (field_commerce_saleprice_on_sale) */
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['id'] = 'field_commerce_saleprice_on_sale_value';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['table'] = 'field_data_field_commerce_saleprice_on_sale';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['field'] = 'field_commerce_saleprice_on_sale_value';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['path'] = 'products/sale/yarn';
   $translatables['relative_products'] = array(
     t('Master'),
     t('Relative products'),
@@ -345,6 +388,8 @@ function mirnitok_yarn_views_default_views() {
     t('Products yarn'),
     t('Длина'),
     t('Products needles'),
+    t('Products sale yarn'),
+    t('Распродажа'),
   );
   $export['relative_products'] = $view;
 

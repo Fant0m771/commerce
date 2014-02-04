@@ -464,8 +464,6 @@ div.horizontal-tabs {
   -o-transition: all 0.3s ease-out;  /* Opera 10.5 */
   -webkit-transition: all 0.3s ease-out;  /* Saf3.2+, Chrome */
   transition: all 0.3s ease-out;
-  padding-bottom: 2px;
-  border-bottom: 2px solid #69B5E4;
   cursor: default;
 }
 
