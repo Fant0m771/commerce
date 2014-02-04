@@ -19,16 +19,19 @@
  * @ingroup views_templates
  */
 ?>
+<?php $rowed = array_chunk($rows, 3); ?>
 <div id="taxonomy-list-terms">
   <div class="terms-container">
-    <ul class="list-rows-terms">
-      <?php foreach ($rows as $key => $row): ?>
-        <li class="term-row">
-          <div><?php print $row['field_term_brand_image']; ?></div>
-          <div class='term-name'><?php print $row['name']; ?></div>
-        </li>
-      <?php endforeach; ?>
-    </ul>
+    <?php foreach ($rowed as $rows): ?>
+      <ul class="list-rows-terms">
+        <?php foreach ($rows as $key => $row): ?>
+          <li class="term-row<?php if ($key == 0) { print " first"; } elseif ($key == 2) { print " last"; } ?>">
+            <div><?php print $row['field_term_brand_image']; ?></div>
+            <div class='term-name'><?php print $row['name']; ?></div>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    <?php endforeach; ?>
     <div class='clear'></div>
   </div>
 </div>

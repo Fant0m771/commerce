@@ -1172,25 +1172,39 @@ select#edit-customer-profile-shipping-addressbook {
   list-style: none;
 }
 
+#block-views-taxonomy-list-of-term-block ul.list-rows-terms {
+  width: 100%;
+  clear: both;
+}
+
 #block-views-taxonomy-list-of-term-block li.term-row {
-  width: 181px;
+  width: 32%;
   float: left;
-  margin: 0 5px 10px 5px;
-  border: 1px solid #F6F6F6;
+  margin-right: 2%;
+  margin-left: 2%;
+  margin-top: 5px;
   position: relative;
 }
 
+#block-views-taxonomy-list-of-term-block li.term-row.first,
+#block-views-taxonomy-list-of-term-block li.term-row.last {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 #block-views-taxonomy-list-of-term-block li.term-row:hover {
-  background-color: #FFB400;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row img {
   width: 100%;
+  height: auto;
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row .term-name {
   background-color: #F6F6F6;
+  display: inline-block;
+  width: auto;
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row .term-name a {

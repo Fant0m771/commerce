@@ -83,33 +83,6 @@ function mirnitok_needles_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Sale needles */
-  $handler = $view->new_display('page', 'Sale needles', 'page_1');
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Критерий фильтра: Содержимое: Опубликовано */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Критерий фильтра: Содержимое: Тип */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'needles_display' => 'needles_display',
-  );
-  /* Критерий фильтра: Содержимое: Sale product (field_product_sale_product) */
-  $handler->display->display_options['filters']['field_product_sale_product_value']['id'] = 'field_product_sale_product_value';
-  $handler->display->display_options['filters']['field_product_sale_product_value']['table'] = 'field_data_field_product_sale_product';
-  $handler->display->display_options['filters']['field_product_sale_product_value']['field'] = 'field_product_sale_product_value';
-  $handler->display->display_options['filters']['field_product_sale_product_value']['value'] = array(
-    1 => '1',
-  );
-  $handler->display->display_options['path'] = 'sale/needles';
   $translatables['needles_list'] = array(
     t('Master'),
     t('Распродажа спиц'),
@@ -127,7 +100,6 @@ function mirnitok_needles_views_default_views() {
     t('следующая ›'),
     t('последняя »'),
     t('Needles list'),
-    t('Sale needles'),
   );
   $export['needles_list'] = $view;
 
