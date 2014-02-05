@@ -1,6 +1,64 @@
 <?php
 
 /**
+ * Implements hook_menu().
+ */
+function take_order_myself_menu() {
+  $items = array();
+
+  $items['view-store/%ctools_js/%node'] = array(
+    'title'             => '',
+    'page callback'     => 'take_order_myself_view_store_map_callback',
+    'page arguments'    => array(1, 2),
+    'access arguments'  => array('use access'),
+    'delivery callback' => 'ajax_deliver',
+    'theme callback'    => 'ajax_base_page_theme',
+  );
+  return $items;
+}
+
+function take_order_myself_view_store_map_callback($js = NULL, $nid) {
+  if(!$js) {
+    return render(node_view($nid, 'full', NULL));
+  }
+
+  // Include library.
+  ctools_include('modal');
+  ctools_include('ajax');
+  $contents = render(node_view($nid, 'full', NULL));
+  @file_put_contents('D:/log.txt',date('m-d-y H:i:s').' '.basename(__FILE__).':'.__LINE__.">\n".print_r(ctools_modal_render($nid->title, $contents), 1)."\n",FILE_APPEND);
+  return ctools_modal_render($nid->title, $contents) ;
+}
+
+function take_order_myself_view_store_modal_page($nid) {
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+
+  $custom_style = array(
+    'simple-modal-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 600,
+        'height' => 400,
+        'addWidth' => 20,
+        'addHeight' => 15,
+      ),
+      'animation' => 'fadeIn',
+    ),
+  );
+  drupal_add_js($custom_style, 'setting');
+
+  $output = ctools_modal_text_button(t('Click Here'), "view-store/nojs/$nid",
+    t('Pop me up'), 'ctools-modal-simple-modal-style');
+
+  ctools_include('plugins');
+  return $output;
+}
+
+
+
+/**
  * Implements hook_form_alter()
  */  
 function take_order_myself_form_alter(&$form, &$form_state, $form_id) {
@@ -85,7 +143,7 @@ function _take_order_myself_switch_method($form) {
       '#type' => 'radio',
       '#name' => 'store-addresses',
 
-      '#title' => $address->field_store_city[LANGUAGE_NONE][0]['value'] . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>",
+      '#title' => take_order_myself_view_store_modal_page($address->nid), //$address->field_store_city[LANGUAGE_NONE][0]['value'] . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>",
       '#attributes' => array(
         'class' => array('addresses'),
         'data-city' => $address->field_store_city[LANGUAGE_NONE][0]['value'],
