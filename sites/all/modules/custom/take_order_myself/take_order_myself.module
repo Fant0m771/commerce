@@ -8,16 +8,19 @@ function take_order_myself_menu() {
 
   $items['view-store/%ctools_js/%node'] = array(
     'title'             => '',
-    'page callback'     => 'take_order_myself_view_store_map_callback',
+    'page callback'     => '_take_order_myself_view_store_map_callback',
     'page arguments'    => array(1, 2),
-    'access arguments'  => array('use access'),
-    'delivery callback' => 'ajax_deliver',
-    'theme callback'    => 'ajax_base_page_theme',
+    'access arguments'  => array('user access'),
+    'access callback'   => TRUE,
+    'type'              => MENU_CALLBACK,
   );
   return $items;
 }
 
-function take_order_myself_view_store_map_callback($js = NULL, $nid) {
+function _take_order_myself_view_store_map_callback($js = NULL, $nid) {
+  render(node_view($nid, 'full', NULL));
+
+  @file_put_contents('D:/log.txt',date('m-d-y H:i:s').' '.basename(__FILE__).':'.__LINE__.">\n".print_r($nid, 1)."\n",FILE_APPEND); exit;
   if(!$js) {
     return render(node_view($nid, 'full', NULL));
   }
@@ -26,7 +29,7 @@ function take_order_myself_view_store_map_callback($js = NULL, $nid) {
   ctools_include('modal');
   ctools_include('ajax');
   $contents = render(node_view($nid, 'full', NULL));
-  @file_put_contents('D:/log.txt',date('m-d-y H:i:s').' '.basename(__FILE__).':'.__LINE__.">\n".print_r(ctools_modal_render($nid->title, $contents), 1)."\n",FILE_APPEND);
+
   return ctools_modal_render($nid->title, $contents) ;
 }
 
