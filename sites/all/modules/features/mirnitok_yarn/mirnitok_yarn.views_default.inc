@@ -365,6 +365,84 @@ function mirnitok_yarn_views_default_views() {
     1 => '1',
   );
   $handler->display->display_options['path'] = 'products/sale/yarn';
+
+  /* Display: Products slider */
+  $handler = $view->new_display('block', 'Products slider', 'products_slider');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'flexslider';
+  $handler->display->display_options['style_options']['optionset'] = 'slider';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Поле: Commerce Товар: ID товара */
+  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['label'] = '';
+  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
+  /* Поле: Содержимое: Путь */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['path']['label'] = '';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['path']['absolute'] = TRUE;
+  /* Поле: Commerce Товар: Картинка */
+  $handler->display->display_options['fields']['field_yarn_image']['id'] = 'field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['table'] = 'field_data_field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['field'] = 'field_yarn_image';
+  $handler->display->display_options['fields']['field_yarn_image']['label'] = '';
+  $handler->display->display_options['fields']['field_yarn_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_yarn_image']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_yarn_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_yarn_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_yarn_image']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_yarn_image']['delta_offset'] = '0';
+  /* Поле: Commerce Товар: Цвет */
+  $handler->display->display_options['fields']['field_yarn_color']['id'] = 'field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['table'] = 'field_data_field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['field'] = 'field_yarn_color';
+  $handler->display->display_options['fields']['field_yarn_color']['label'] = '';
+  $handler->display->display_options['fields']['field_yarn_color']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_yarn_color']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_yarn_color']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_yarn_color']['type'] = 'taxonomy_term_reference_plain';
+  /* Поле: Commerce Товар: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Поле: Commerce Товар: Форма добавления в корзину */
+  $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
+  $handler->display->display_options['fields']['add_to_cart_form']['field'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['label'] = '';
+  $handler->display->display_options['fields']['add_to_cart_form']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['add_to_cart_form']['show_quantity'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['default_quantity'] = '1';
+  $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
+  $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $translatables['relative_products'] = array(
     t('Master'),
     t('Relative products'),
@@ -390,6 +468,7 @@ function mirnitok_yarn_views_default_views() {
     t('Products needles'),
     t('Products sale yarn'),
     t('Распродажа'),
+    t('Products slider'),
   );
   $export['relative_products'] = $view;
 

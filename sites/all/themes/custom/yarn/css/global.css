@@ -1182,11 +1182,9 @@ select#edit-customer-profile-shipping-addressbook {
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row {
-  width: 32%;
+  width: 32.333%;
   float: left;
-  margin-right: 2%;
-  margin-left: 2%;
-  margin-top: 5px;
+  margin: 0 1.5% 1.5%;
   position: relative;
 }
 

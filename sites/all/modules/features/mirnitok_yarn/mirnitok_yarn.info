@@ -4,6 +4,7 @@ core = 7.x
 package = Mirnitok
 version = 7.x-1.0
 project = mirnitok_yarn
+dependencies[] = flexslider_views
 dependencies[] = mirnitok_needles
 dependencies[] = node
 dependencies[] = strongarm

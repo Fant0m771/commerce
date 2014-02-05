@@ -1,1 +1,1 @@
-/* max-width: 320px */@media only screen and (max-width: 320px) {  #block-views-taxonomy-list-of-term-block li.term-row {    float: none;    width: 100%;    margin-left: 0;    margin-right: 0;  }}
+/* max-width: 320px */@media only screen and (max-width: 320px) {  #block-views-taxonomy-list-of-term-block li.term-row {    float: none;    width: 100%;    margin-left: 0;    margin-right: 0;    margin-bottom: 8px;  }}
