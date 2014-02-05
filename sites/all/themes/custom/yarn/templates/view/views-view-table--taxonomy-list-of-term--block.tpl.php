@@ -26,8 +26,10 @@
       <ul class="list-rows-terms">
         <?php foreach ($rows as $key => $row): ?>
           <li class="term-row<?php if ($key == 0) { print " first"; } elseif ($key == 2) { print " last"; } ?>">
-            <div><?php print $row['field_term_brand_image']; ?></div>
-            <div class='term-name'><?php print $row['name']; ?></div>
+            <div class="term-image"><?php print $row['field_term_brand_image']; ?></div>
+            <div class='term-name'>
+              <div class='overlay'><?php print $row['name']; ?></div>
+            </div>
           </li>
         <?php endforeach; ?>
       </ul>

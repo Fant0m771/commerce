@@ -179,15 +179,18 @@ function custom_yarn_popup_attributes_alter(&$attributes){
 
 /**
  *  Implements hook_node_presave.
- * @param $node
+ * @param object $node
  */
 function custom_yarn_node_presave($node) {
 
   $fields = FALSE;
-  if (isset($node->field_product_variations)) {  // yarn display
+  // Yarn display.
+  if (isset($node->field_product_variations)) {
     $fields = $node->field_product_variations;
     $display_image_fid = _custom_yarn_get_product_image($fields[LANGUAGE_NONE][0], 'yarn');
-  } elseif(isset($node->field_needles_product_variations)) {    // needles display
+  }
+  // needles display
+  elseif(isset($node->field_needles_product_variations)) {
     $fields = $node->field_needles_product_variations;
     $display_image_fid = _custom_yarn_get_product_image($fields[LANGUAGE_NONE][0], 'needles');
   }
