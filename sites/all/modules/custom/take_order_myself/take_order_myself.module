@@ -38,18 +38,17 @@ function take_order_myself_view_store_map_callback($js = NULL, $nid) {
 }
 
 function take_order_myself_view_store_modal_page($params) {
-
     $modal_button = array(
       'ajax_link' => "view-store/nojs/" . $params['nid'],
       'address'   => $params['city'] . " " . $params['address'],
       'title'     => $params['link_text'],
     );
-
-    $output = ctools_modal_text_button($modal_button['address'],$modal_button['ajax_link'], $modal_button['title'], 'ctools-modal-store-modal-style');
+    $output = ctools_modal_text_button($modal_button['address'],
+                                       $modal_button['ajax_link'],
+                                       $modal_button['title'],
+                                       'ctools-modal-store-modal-style');
     return $output;
 }
-
-
 
 /**
  * Implements hook_form_alter()
@@ -61,7 +60,6 @@ function take_order_myself_form_alter(&$form, &$form_state, $form_id) {
     case "commerce_checkout_form_checkout":
       $form = _take_order_myself_fix_shipping_form($form);
       $form = _take_order_myself_switch_method($form);
-
       break;
   }
 

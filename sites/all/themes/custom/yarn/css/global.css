@@ -1226,3 +1226,18 @@ select#edit-customer-profile-shipping-addressbook {
   display: block;
   text-align: center;
 }
+
+.field-type-addressfield .addressfield-container-inline,
+.field-type-addressfield .street-block {
+  float: left;
+}
+
+.form-item-customer-profile-shipping-commerce-customer-address-und-0-thoroughfare {
+  margin-right: 1em;
+}
+
+
+
+.field-name-field-customer-shipping-phone {
+  clear: both;
+}
