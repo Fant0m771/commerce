@@ -1,13 +1,43 @@
-jQuery(document).ready(function($) {
-  // center positioned maps.
+/**
+ * Provide the HTML to create the modal dialog.
+ */
+Drupal.theme.prototype.TOMModalFormPopup = function () {
+  var html = '';
+
+  html += '<div id="ctools-modal" class="popups-box">';
+  html += '  <div class="ctools-modal-content modal-forms-modal-content ' + Drupal.CTools.Modal.currentSettings['class'] + '">';
+  html += '    <div class="modal-top">';
+  html += '      <a class="close" href="#">' + Drupal.CTools.Modal.currentSettings.closeImage + '</a>';
+  html += '      <span id="modal-title" class="modal-title"> </span>';
+  html += '    </div>';
+  html += '    <div id="modal-content" class="modal-content"></div>';
+  html += '  </div>';
+  html += '</div>';
+
+  return html;
+}
+
+jQuery.fn.modal_window_position = function() {
   var topYloc = null;
+  var scrollTop = jQuery(document).scrollTop();
+  scrollTop = parseInt(scrollTop);
+  var offset = topYloc + scrollTop + "px";
+  jQuery(this).animate({top:offset},{duration:700,queue:false});
+}
+
+jQuery(document).ready(function($) {
+  var topYloc = null;
+  // center positioned maps.
   jQuery(window).scroll(function () {
+    modalWindowPosition("#modalContent")
+  });
+
+  function modalWindowPosition(id) {
     var scrollTop = jQuery(document).scrollTop();
     scrollTop = parseInt(scrollTop);
     var offset = topYloc + scrollTop + "px";
-    jQuery(".view-id-stores").animate({top:offset},{duration:700,queue:false});
-
-  });
+    jQuery(id).animate({top:offset},{duration:700,queue:false});
+  }
 
   /*
   $("#edit-myself-fildset input.form-checkbox").click(function() {

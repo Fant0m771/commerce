@@ -1,62 +1,52 @@
 <?php
 
 /**
+ * Implements hook_init().
+ */
+function take_order_myself_init() {
+  take_order_myself_add_modal_settings();
+}
+
+/**
  * Implements hook_menu().
  */
 function take_order_myself_menu() {
   $items = array();
 
-  $items['view-store/%ctools_js/%node'] = array(
-    'title'             => '',
-    'page callback'     => '_take_order_myself_view_store_map_callback',
-    'page arguments'    => array(1, 2),
-    'access arguments'  => array('user access'),
-    'access callback'   => TRUE,
-    'type'              => MENU_CALLBACK,
+  $items['view-store/%ctools_js'] = array(
+    'title'           => '',
+    'page callback'   => 'take_order_myself_view_store_map_callback',
+    'page arguments'  => array(1, 2),
+    'access callback' => TRUE,
+    'type'            => MENU_CALLBACK,
   );
   return $items;
 }
 
-function _take_order_myself_view_store_map_callback($js = NULL, $nid) {
-  render(node_view($nid, 'full', NULL));
-
-  @file_put_contents('D:/log.txt',date('m-d-y H:i:s').' '.basename(__FILE__).':'.__LINE__.">\n".print_r($nid, 1)."\n",FILE_APPEND); exit;
-  if(!$js) {
-    return render(node_view($nid, 'full', NULL));
+function take_order_myself_view_store_map_callback($js = NULL, $nid) {
+  $output = node_view(node_load($nid));
+  if ($js) {
+    ctools_include('ajax');
+    $commands = array();
+    $commands[] = ajax_command_html('#modal-content', render($output));
+    $commands[] = ajax_command_invoke('#modalContent', 'modal_window_position');
+    print ajax_render($commands); exit;
   }
-
-  // Include library.
-  ctools_include('modal');
-  ctools_include('ajax');
-  $contents = render(node_view($nid, 'full', NULL));
-
-  return ctools_modal_render($nid->title, $contents) ;
+  else {
+    return $output;
+  }
 }
 
-function take_order_myself_view_store_modal_page($nid) {
-  ctools_include('ajax');
-  ctools_include('modal');
-  ctools_modal_add_js();
+function take_order_myself_view_store_modal_page($params) {
 
-  $custom_style = array(
-    'simple-modal-style' => array(
-      'modalSize' => array(
-        'type' => 'fixed',
-        'width' => 600,
-        'height' => 400,
-        'addWidth' => 20,
-        'addHeight' => 15,
-      ),
-      'animation' => 'fadeIn',
-    ),
-  );
-  drupal_add_js($custom_style, 'setting');
+    $modal_button = array(
+      'ajax_link' => "view-store/nojs/" . $params['nid'],
+      'address'   => $params['city'] . " " . $params['address'],
+      'title'     => $params['link_text'],
+    );
 
-  $output = ctools_modal_text_button(t('Click Here'), "view-store/nojs/$nid",
-    t('Pop me up'), 'ctools-modal-simple-modal-style');
-
-  ctools_include('plugins');
-  return $output;
+    $output = ctools_modal_text_button($modal_button['address'],$modal_button['ajax_link'], $modal_button['title'], 'ctools-modal-store-modal-style');
+    return $output;
 }
 
 
@@ -69,7 +59,6 @@ function take_order_myself_form_alter(&$form, &$form_state, $form_id) {
 
   switch ($form_id) {
     case "commerce_checkout_form_checkout":
-
       $form = _take_order_myself_fix_shipping_form($form);
       $form = _take_order_myself_switch_method($form);
 
@@ -81,21 +70,6 @@ function take_order_myself_form_alter(&$form, &$form_state, $form_id) {
 
 function _take_order_myself_fix_shipping_form($form) {
   if (isset($form["customer_profile_shipping"])) {
-
-    // add stores to stores list
-    /*
-    drupal_add_js(drupal_get_path('module', 'take_order_myself') . '/js/billing_order.js');
-    $addresses = _take_order_myself_get_store_list();
-    $stores = array();
-    foreach ($addresses as $key => $address) {
-      $stores[$address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value']] =
-        $address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" .t("show on map") . "</span>";
-    }
-    $form['customer_profile_shipping']['field_customer_ship_strores_list'][LANGUAGE_NONE]['#options'] = $stores;
-    $form['customer_profile_shipping']['field_customer_ship_strores_list'][LANGUAGE_NONE]['#attributes']['class'] = array('addresses');
-    // cancel stores list
-    */
-
     $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#title'] = t("Address");
     $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#attributes'] = array('class' => array('can-disable'));
     $form["customer_profile_shipping"]["commerce_customer_address"][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#weight'] = 1;
@@ -131,22 +105,16 @@ function _take_order_myself_switch_method($form) {
 
   $addresses = _take_order_myself_get_store_list();
   $stores = array();
-  /*
-  foreach ($addresses as $key => $address) {
-    $stores[$address->field_store_city[LANGUAGE_NONE][0]['value'] . ", " . $address->field_store_address[LANGUAGE_NONE][0]['value']] =
-     "<span data-address=" . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " data-city=" . $address->field_store_city[LANGUAGE_NONE][0]['value'] . " >"
-      . $address->field_store_city[LANGUAGE_NONE][0]['value'] . ", "
-      . $address->field_store_address[LANGUAGE_NONE][0]['value']
-     . "</span>"
-     . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>";
-  }
-  */
   foreach ($addresses as $key => $address) {
     $form['myself_fildset']['store_adresses'][] = array(
       '#type' => 'radio',
       '#name' => 'store-addresses',
-
-      '#title' => take_order_myself_view_store_modal_page($address->nid), //$address->field_store_city[LANGUAGE_NONE][0]['value'] . $address->field_store_address[LANGUAGE_NONE][0]['value'] . " <span data-store-id='$address->nid' class='not-link'>" . t("show on map") . "</span>",
+      '#title' => take_order_myself_view_store_modal_page(array(
+        'nid' => $address->nid,
+        'city' => $address->field_store_city[LANGUAGE_NONE][0]['value'],
+        'address' => $address->field_store_address[LANGUAGE_NONE][0]['value'],
+        'link_text' => t("show on map"),
+      )),
       '#attributes' => array(
         'class' => array('addresses'),
         'data-city' => $address->field_store_city[LANGUAGE_NONE][0]['value'],
@@ -178,4 +146,35 @@ function _take_order_myself_get_store_list() {
   }
 
   return $nodes;
+}
+
+/**
+ * Add modal window settings.
+ */
+function take_order_myself_add_modal_settings() {
+  static $added = FALSE;
+
+  if ($added == FALSE) {
+    $added = TRUE;
+    ctools_include('ajax');
+    ctools_include('modal');
+    ctools_modal_add_js();
+
+
+    $custom_style = array(
+      'store-modal-style' => array(
+        'modalSize' => array(
+          'type' => 'scale',
+          'width' => '0.8',
+          'height' => 'auto',
+        ),
+        'modalTheme' => 'TOMModalFormPopup',
+        'class' => 'store_map',
+        'closeText' => '',
+        'animation' => 'fadeIn',
+      ),
+    );
+    drupal_add_js($custom_style, 'setting');
+    ctools_include('plugins');
+  }
 }
