@@ -170,6 +170,8 @@ function take_order_myself_add_modal_settings() {
         'class' => 'store_map',
         'closeText' => '',
         'animation' => 'fadeIn',
+        'loadingText' => '...',
+        'closeImage' => theme('image', array('path' => drupal_get_path('module', 'take_order_myself') . '/images/close_button.png', 'alt' => t('Close window'), 'title' => t('Close window'))),
       ),
     );
     drupal_add_js($custom_style, 'setting');

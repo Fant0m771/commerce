@@ -1194,10 +1194,6 @@ select#edit-customer-profile-shipping-addressbook {
   margin-left: 0;
 }
 
-#block-views-taxonomy-list-of-term-block li.term-row:hover {
-  opacity: 0.8;
-}
-
 #block-views-taxonomy-list-of-term-block li.term-row img {
   width: 100%;
   height: auto;
@@ -1207,9 +1203,8 @@ select#edit-customer-profile-shipping-addressbook {
   background: url("../images/black-transparent50.png");
   bottom: 0;
   display: block;
-  padding: 5%;
   position: absolute;
-  width: 90%;
+  width: 100%;
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row .term-name .overlay {
@@ -1219,12 +1214,19 @@ select#edit-customer-profile-shipping-addressbook {
 
 #block-views-taxonomy-list-of-term-block li.term-row .term-name a {
   text-decoration: none;
-  color: #666666;
+  color: #FFF;
   text-align: center;
   font-size: 18px;
   font-weight: bold;
   display: block;
   text-align: center;
+  padding: 5%;
+  width: 90%;
+}
+
+#block-views-taxonomy-list-of-term-block li.term-row:hover {
+  text-decoration: underline;
+  text-shadow: 1px 1px 2px #666, 0 0 1em #FFF;
 }
 
 .field-type-addressfield .addressfield-container-inline,
@@ -1236,8 +1238,15 @@ select#edit-customer-profile-shipping-addressbook {
   margin-right: 1em;
 }
 
-
-
 .field-name-field-customer-shipping-phone {
   clear: both;
+}
+
+.ctools-modal-content.store_map {
+  background: transparent;
+  border: none;
+}
+
+#modal-content h2.node-title {
+  display: none;
 }
