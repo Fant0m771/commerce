@@ -321,7 +321,7 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['path'] = 'products/sale/yarn';
 
   /* Display: Latest updated yarn block */
-  $handler = $view->new_display('block', 'Latest updated yarn block', 'products_slider');
+  $handler = $view->new_display('block', 'Latest updated yarn block', 'latest_updated_products');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Последнее обновление';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
@@ -429,25 +429,6 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
-  /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
-  $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['field'] = 'field_yarn_color_tid';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator_id'] = 'field_yarn_color_tid_op';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['label'] = 'Цвет';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator'] = 'field_yarn_color_tid_op';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['identifier'] = 'color';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
 
   /* Display: Latest updated yarn page */
   $handler = $view->new_display('page', 'Latest updated yarn page', 'page_1');
@@ -467,6 +448,32 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['sorts']['changed']['granularity'] = 'minute';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'yarn/new';
+
+  /* Display: Recommended yarn */
+  $handler = $view->new_display('block', 'Recommended yarn', 'recommended_yarn_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Recommended yarn';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+  /* Критерий фильтра: Commerce Товар: Recommended (field_recommended) */
+  $handler->display->display_options['filters']['field_recommended_value']['id'] = 'field_recommended_value';
+  $handler->display->display_options['filters']['field_recommended_value']['table'] = 'field_data_field_recommended';
+  $handler->display->display_options['filters']['field_recommended_value']['field'] = 'field_recommended_value';
+  $handler->display->display_options['filters']['field_recommended_value']['value'] = array(
+    1 => '1',
+  );
   $translatables['relative_products'] = array(
     t('Master'),
     t('Relative products'),
@@ -496,6 +503,7 @@ function mirnitok_yarn_views_default_views() {
     t('Последнее обновление'),
     t('<a href=\'yarn/new\'>More</a>'),
     t('Latest updated yarn page'),
+    t('Recommended yarn'),
   );
   $export['relative_products'] = $view;
 
