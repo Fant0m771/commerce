@@ -1274,3 +1274,9 @@ select#edit-customer-profile-shipping-addressbook {
 .view-id-relative_products .view-footer {
   clear: both;
 }
+
+.block-commerce-cart-cart .view-footer .line-item-quantity {
+  padding-top: 4px;
+}
+
+

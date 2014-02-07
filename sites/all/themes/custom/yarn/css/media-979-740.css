@@ -10,4 +10,19 @@
     margin-right: 0;
   }
 
+  .block-commerce-cart-cart td.views-field-line-item-title {
+    display: none;
+  }
+
+  .block-commerce-cart-cart .view-footer .links.inline li {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .block-commerce-cart-cart .view-footer .links.inline li {
+    padding: 0;
+    margin: 0;
+    padding-bottom: 5px;
+  }
 }
