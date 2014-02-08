@@ -48,6 +48,7 @@ features[variable][] = node_options_yarn_display
 features[variable][] = node_preview_yarn_display
 features[variable][] = node_submitted_yarn_display
 features[views_view][] = relative_products
+features[views_view][] = taxonomy_list_of_term
 features[views_view][] = yarn_displays_list
 features[views_view][] = yarn_list
 features_exclude[dependencies][better_exposed_filters] = better_exposed_filters

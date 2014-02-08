@@ -74,6 +74,7 @@ button, input[type="reset"], input[type="submit"], input[type="button"],
 
 #zone-content {
   background: #FFF;
+    padding-top: 1em;
 }
 
 /*main-menu*/
@@ -103,6 +104,11 @@ button, input[type="reset"], input[type="submit"], input[type="button"],
 #region-header-second .block .block-inner {
   margin: 0 10px;
   padding: 10px 0;
+}
+
+.region-sidebar-first .block,
+.region-sidebar-second .block {
+    margin-top: 10px;
 }
 
 table {
@@ -819,10 +825,6 @@ ul.vocabulary {
   padding: 3px 18px 3px 8px;
 }
 
-#section-content {
-  margin-top: 1rem;
-}
-
 .block-user-login .block-title {
   display: none;
 }
@@ -1170,6 +1172,12 @@ select#edit-customer-profile-shipping-addressbook {
 
 #block-views-taxonomy-list-of-term-block {
   height: auto;
+  margin-top: 10px;
+}
+
+#block-views-taxonomy-list-of-term-block .block-title {
+  text-align: center;
+  text-transform: uppercase;
 }
 
 #block-views-taxonomy-list-of-term-block ul {
@@ -1200,7 +1208,7 @@ select#edit-customer-profile-shipping-addressbook {
 }
 
 #block-views-taxonomy-list-of-term-block li.term-row .term-name {
-  background: url("../images/black-transparent50.png");
+  background: url("../images/sale-bg.png");
   bottom: 0;
   display: block;
   position: absolute;

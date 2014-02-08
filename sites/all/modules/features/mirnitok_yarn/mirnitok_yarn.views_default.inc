@@ -473,6 +473,117 @@ function mirnitok_yarn_views_default_views() {
   $export['relative_products'] = $view;
 
   $view = new view();
+  $view->name = 'taxonomy_list_of_term';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'taxonomy_term_data';
+  $view->human_name = 'Taxonomy list of term';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'ещё';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
+  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
+  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
+  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
+  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'tid' => 'tid',
+    'name' => 'name',
+    'field_term_brand_image' => 'field_term_brand_image',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'tid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_term_brand_image' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  /* Поле: Термин таксономии: ID термина */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['tid']['separator'] = '';
+  /* Поле: Термин таксономии: Имя */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'yarn?brand[]=[tid]';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  /* Поле: Термин таксономии: Картинка */
+  $handler->display->display_options['fields']['field_term_brand_image']['id'] = 'field_term_brand_image';
+  $handler->display->display_options['fields']['field_term_brand_image']['table'] = 'field_data_field_term_brand_image';
+  $handler->display->display_options['fields']['field_term_brand_image']['field'] = 'field_term_brand_image';
+  $handler->display->display_options['fields']['field_term_brand_image']['label'] = '';
+  $handler->display->display_options['fields']['field_term_brand_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_term_brand_image']['alter']['path'] = '?brand[]=[tid]';
+  $handler->display->display_options['fields']['field_term_brand_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_term_brand_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_term_brand_image']['settings'] = array(
+    'image_style' => 'medium',
+    'image_link' => '',
+  );
+  /* Критерий фильтра: Словарь таксономии: Машинное имя */
+  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'brand' => 'brand',
+  );
+
+  /* Display: Taxonomy brand list */
+  $handler = $view->new_display('block', 'Taxonomy brand list', 'block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'By brand';
+  $translatables['taxonomy_list_of_term'] = array(
+    t('Master'),
+    t('ещё'),
+    t('Применить'),
+    t('Сбросить'),
+    t('Сортировать по'),
+    t('По возрастанию'),
+    t('По убыванию'),
+    t('.'),
+    t('Taxonomy brand list'),
+    t('By brand'),
+  );
+  $export['taxonomy_list_of_term'] = $view;
+
+  $view = new view();
   $view->name = 'yarn_displays_list';
   $view->description = '';
   $view->tag = 'default';
