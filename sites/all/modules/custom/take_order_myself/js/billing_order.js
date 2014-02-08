@@ -56,16 +56,15 @@ function availableAddresses() {
 }
 
 jQuery(document).ready(function($) {
+
   availableAddresses();
-  // center positioned maps.
+  // Center positioned maps.
   jQuery(window).scroll(function () {
     modalWindowPosition("#modalContent")
   });
 
   jQuery(".commerce_shipping input.form-radio").click(function() {
-    console.warn(jQuery(this));
     if ($(this).is(":checked")) {
-
       var group = "input:checkbox[name='" + $(this).attr("name") + "']";
       $(group).prop("checked", false);
       $(this).prop("checked", true);
@@ -74,30 +73,12 @@ jQuery(document).ready(function($) {
     }
   });
 
-  /*
-  var billingRadio = $("input[type='radio'].take_order").eq(0);
-  var deliveryRadio = $("input[type='radio'].take_order").eq(1);
-  */
-
   var addressRadio = $(".addresses.form-radio");
-  /*
-  isCheckedCheckboxDo(billingRadio);
-
-  billingRadio.change(function() {
-    isCheckedCheckboxDo($(this));
-  });
-
-  deliveryRadio.change(function() {
-    deliveryChecked($(this));
-  });
-   */
   addressRadio.change(function() {
     isCheckedRadioDo($(this));
   });
 
-
 function isCheckedCheckboxDo(checkBox) {
-
   if(checkBox.is(":checked")) {
     $("#edit-store-adresses").removeClass("not-active").addClass("active");
     $(".addresses.form-radio").removeAttr("disabled");
@@ -105,12 +86,6 @@ function isCheckedCheckboxDo(checkBox) {
     $("#edit-store-adresses").toggle(true)
     $("#edit-store-adresses").animate({
       }, 3000, 'swing', setReadOnly(true, $("fieldset input.can-disable")));
-  }
-}
-
-function deliveryChecked(checkBox) {
-  if(checkBox.is(":checked")) {
-
   }
 }
 

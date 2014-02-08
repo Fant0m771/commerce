@@ -4,3 +4,8 @@
 ul.nice-menu-down li ul {
   width: 940px;
 }
+
+.sale-stamp {
+  background: url("../images/new-sale.png") no-repeat 0 -81px;
+  height: 50px;
+}

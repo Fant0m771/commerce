@@ -1,0 +1,5 @@
+name = Yarn Alters
+description = Yarn element alters
+package = Yarn
+
+core = 7.x

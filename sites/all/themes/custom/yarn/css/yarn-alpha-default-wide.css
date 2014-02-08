@@ -6,3 +6,9 @@ ul.nice-menu-down li ul {
 #zone-menu .container-12 .grid-12 {
   width: 1200px;
 }
+
+.sale-stamp {
+  background: url("../images/new-sale.png") no-repeat;
+  height:71px;
+  width: 138px;
+}

@@ -66,54 +66,8 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ предыдущая';
   $handler->display->display_options['pager']['options']['tags']['next'] = 'следующая ›';
   $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'product_id' => 'product_id',
-    'path' => 'path',
-    'commerce_price' => 'commerce_price',
-    'field_yarn_image' => 'field_yarn_image',
-    'field_yarn_color' => 'field_yarn_color',
-    'add_to_cart_form' => 'add_to_cart_form',
-  );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'product_id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'path' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'commerce_price' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_yarn_image' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_yarn_color' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'add_to_cart_form' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
   /* Связь: Commerce Товар: Referencing Материал */
   $handler->display->display_options['relationships']['field_product_variations']['id'] = 'field_product_variations';
   $handler->display->display_options['relationships']['field_product_variations']['table'] = 'commerce_product';
@@ -366,19 +320,34 @@ function mirnitok_yarn_views_default_views() {
   );
   $handler->display->display_options['path'] = 'products/sale/yarn';
 
-  /* Display: Products slider */
-  $handler = $view->new_display('block', 'Products slider', 'products_slider');
+  /* Display: Latest updated yarn block */
+  $handler = $view->new_display('block', 'Latest updated yarn block', 'latest_updated_products');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Последнее обновление';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['defaults']['use_more'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'ещё';
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'flexslider';
-  $handler->display->display_options['style_options']['optionset'] = 'slider';
+  $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Подвал: Глобальный: Текстовое поле */
+  $handler->display->display_options['footer']['area']['id'] = 'area';
+  $handler->display->display_options['footer']['area']['table'] = 'views';
+  $handler->display->display_options['footer']['area']['field'] = 'area';
+  $handler->display->display_options['footer']['area']['content'] = '<a href=\'yarn/new\'>More</a>';
+  $handler->display->display_options['footer']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Поле: Commerce Товар: ID товара */
   $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
@@ -442,7 +411,69 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
   $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Критерий сортировки: Содержимое: Дата обновления */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['changed']['granularity'] = 'minute';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+
+  /* Display: Latest updated yarn page */
+  $handler = $view->new_display('page', 'Latest updated yarn page', 'page_1');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Критерий сортировки: Содержимое: Дата обновления */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['changed']['granularity'] = 'minute';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['path'] = 'yarn/new';
+
+  /* Display: Recommended yarn */
+  $handler = $view->new_display('block', 'Recommended yarn', 'recommended_yarn_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Recommended yarn';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Критерий фильтра: Commerce Товар: Тип */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'yarn' => 'yarn',
+  );
+  /* Критерий фильтра: Commerce Товар: Recommended (field_recommended) */
+  $handler->display->display_options['filters']['field_recommended_value']['id'] = 'field_recommended_value';
+  $handler->display->display_options['filters']['field_recommended_value']['table'] = 'field_data_field_recommended';
+  $handler->display->display_options['filters']['field_recommended_value']['field'] = 'field_recommended_value';
+  $handler->display->display_options['filters']['field_recommended_value']['value'] = array(
+    1 => '1',
+  );
   $translatables['relative_products'] = array(
     t('Master'),
     t('Relative products'),
@@ -468,7 +499,11 @@ function mirnitok_yarn_views_default_views() {
     t('Products needles'),
     t('Products sale yarn'),
     t('Распродажа'),
-    t('Products slider'),
+    t('Latest updated yarn block'),
+    t('Последнее обновление'),
+    t('<a href=\'yarn/new\'>More</a>'),
+    t('Latest updated yarn page'),
+    t('Recommended yarn'),
   );
   $export['relative_products'] = $view;
 

@@ -12,8 +12,8 @@
  */
 
 function yarn_preprocess_html(&$variables) {
-  drupal_add_css(path_to_theme() . '/pixelmatrix-uniform/default/css/uniform.default.min.css');
-  drupal_add_js(path_to_theme() . '/pixelmatrix-uniform/jquery.uniform.min.js');
+  //drupal_add_css(path_to_theme() . '/pixelmatrix-uniform/default/css/uniform.default.min.css');
+  //drupal_add_js(path_to_theme() . '/pixelmatrix-uniform/jquery.uniform.min.js');
   drupal_add_js(path_to_theme() . "/js/script.js", array('scope' => 'footer'));
 
   /*
