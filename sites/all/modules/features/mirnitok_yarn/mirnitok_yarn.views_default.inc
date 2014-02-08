@@ -11,18 +11,18 @@ function mirnitok_yarn_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'relative_products';
+  $view->name = 'products_yarn';
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'commerce_product';
-  $view->human_name = 'Relative products';
+  $view->human_name = 'Products yarn';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Relative products';
+  $handler->display->display_options['title'] = 'Products yarn';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'ещё';
   $handler->display->display_options['access']['type'] = 'none';
@@ -40,7 +40,63 @@ function mirnitok_yarn_views_default_views() {
       'allow_secondary' => 0,
       'secondary_label' => 'Дополнительные настройки',
     ),
+    'field_product_yarn_brand_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
     'field_yarn_color_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_product_yarn_weight_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_product_yarn_category_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 1,
+        'is_secondary' => 0,
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+          ),
+        ),
+      ),
+    ),
+    'field_product_yarn_length_tid' => array(
       'bef_format' => 'bef',
       'more_options' => array(
         'bef_select_all_none' => 0,
@@ -63,8 +119,8 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
   $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
   $handler->display->display_options['pager']['options']['tags']['first'] = '« первая';
-  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ предыдущая';
-  $handler->display->display_options['pager']['options']['tags']['next'] = 'следующая ›';
+  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹';
+  $handler->display->display_options['pager']['options']['tags']['next'] = '›';
   $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -100,7 +156,7 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_yarn_image']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_yarn_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_yarn_image']['settings'] = array(
-    'image_style' => 'thumbnail',
+    'image_style' => 'large',
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_yarn_image']['delta_offset'] = '0';
@@ -109,10 +165,20 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_yarn_color']['table'] = 'field_data_field_yarn_color';
   $handler->display->display_options['fields']['field_yarn_color']['field'] = 'field_yarn_color';
   $handler->display->display_options['fields']['field_yarn_color']['label'] = '';
-  $handler->display->display_options['fields']['field_yarn_color']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_yarn_color']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_yarn_color']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_yarn_color']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_yarn_color']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_yarn_color']['type'] = 'i18n_taxonomy_term_reference_plain';
+  /* Поле: Содержимое: Заголовок */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['title']['alter']['alt'] = '[title] ([field_yarn_color])';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Поле: Commerce Товар: Price */
   $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
@@ -135,17 +201,6 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
   $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
-  /* Контекстный фильтр: Содержимое: Nid */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['exception']['title'] = 'Все';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
   /* Критерий фильтра: Commerce Товар: Тип */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
@@ -153,6 +208,25 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
+  /* Критерий фильтра: Содержимое: Brand (field_product_yarn_brand) */
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['id'] = 'field_product_yarn_brand_tid';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['table'] = 'field_data_field_product_yarn_brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['field'] = 'field_product_yarn_brand_tid';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['vocabulary'] = 'brand';
   /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
   $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
   $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
@@ -169,87 +243,46 @@ function mirnitok_yarn_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
-
-  /* Display: Relative yarn products */
-  $handler = $view->new_display('block', 'Relative yarn products', 'block');
-
-  /* Display: Products yarn */
-  $handler = $view->new_display('page', 'Products yarn', 'page_products_yarn');
-  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
-  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
-  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
-  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['bef'] = array(
-    'general' => array(
-      'allow_secondary' => 0,
-      'secondary_label' => 'Дополнительные настройки',
-    ),
-    'field_yarn_color_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_length_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-  );
-  $handler->display->display_options['exposed_block'] = TRUE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Критерий фильтра: Commerce Товар: Тип */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'yarn' => 'yarn',
-  );
-  /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
-  $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['field'] = 'field_yarn_color_tid';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator_id'] = 'field_yarn_color_tid_op';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['label'] = 'Цвет';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['operator'] = 'field_yarn_color_tid_op';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['identifier'] = 'color';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['expose']['remember_roles'] = array(
+  /* Критерий фильтра: Содержимое: Weight (field_product_yarn_weight) */
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['id'] = 'field_product_yarn_weight_tid';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['table'] = 'field_data_field_product_yarn_weight';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['field'] = 'field_product_yarn_weight_tid';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator_id'] = 'field_product_yarn_weight_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['label'] = 'Вес';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator'] = 'field_product_yarn_weight_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'weight';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
     4 => 0,
   );
-  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
-  $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['vocabulary'] = 'weight';
+  /* Критерий фильтра: Содержимое: Category (field_product_yarn_category) */
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['id'] = 'field_product_yarn_category_tid';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['table'] = 'field_data_field_product_yarn_category';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['field'] = 'field_product_yarn_category_tid';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['operator_id'] = 'field_product_yarn_category_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['label'] = 'Категория';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['operator'] = 'field_product_yarn_category_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['identifier'] = 'category';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['vocabulary'] = 'tags';
   /* Критерий фильтра: Содержимое: Length (field_product_yarn_length) */
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['id'] = 'field_product_yarn_length_tid';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['table'] = 'field_data_field_product_yarn_length';
@@ -269,20 +302,17 @@ function mirnitok_yarn_views_default_views() {
   );
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
-  $handler->display->display_options['path'] = 'products/yarn';
 
-  /* Display: Products needles */
-  $handler = $view->new_display('page', 'Products needles', 'page_2');
+  /* Display: Yarn products */
+  $handler = $view->new_display('page', 'Yarn products', 'yarn_products');
   $handler->display->display_options['exposed_block'] = TRUE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'products/needles';
+  $handler->display->display_options['path'] = 'yarn';
 
-  /* Display: Products sale yarn */
-  $handler = $view->new_display('page', 'Products sale yarn', 'page_products_sale_yarn');
+  /* Display: Recommended yarn */
+  $handler = $view->new_display('page', 'Recommended yarn', 'recommended_yarn');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Распродажа';
+  $handler->display->display_options['title'] = 'Recommended yarn';
   $handler->display->display_options['exposed_block'] = TRUE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
@@ -292,6 +322,25 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
+  /* Критерий фильтра: Содержимое: Brand (field_product_yarn_brand) */
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['id'] = 'field_product_yarn_brand_tid';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['table'] = 'field_data_field_product_yarn_brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['field'] = 'field_product_yarn_brand_tid';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'brand';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['vocabulary'] = 'brand';
   /* Критерий фильтра: Commerce Товар: Цвет (field_yarn_color) */
   $handler->display->display_options['filters']['field_yarn_color_tid']['id'] = 'field_yarn_color_tid';
   $handler->display->display_options['filters']['field_yarn_color_tid']['table'] = 'field_data_field_yarn_color';
@@ -308,118 +357,91 @@ function mirnitok_yarn_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  $handler->display->display_options['filters']['field_yarn_color_tid']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_yarn_color_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_yarn_color_tid']['vocabulary'] = 'color';
-  /* Критерий фильтра: Commerce Товар: On sale (field_commerce_saleprice_on_sale) */
-  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['id'] = 'field_commerce_saleprice_on_sale_value';
-  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['table'] = 'field_data_field_commerce_saleprice_on_sale';
-  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['field'] = 'field_commerce_saleprice_on_sale_value';
-  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['value'] = array(
+  /* Критерий фильтра: Содержимое: Weight (field_product_yarn_weight) */
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['id'] = 'field_product_yarn_weight_tid';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['table'] = 'field_data_field_product_yarn_weight';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['field'] = 'field_product_yarn_weight_tid';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator_id'] = 'field_product_yarn_weight_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['label'] = 'Вес';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator'] = 'field_product_yarn_weight_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'weight';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['vocabulary'] = 'weight';
+  /* Критерий фильтра: Содержимое: Category (field_product_yarn_category) */
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['id'] = 'field_product_yarn_category_tid';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['table'] = 'field_data_field_product_yarn_category';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['field'] = 'field_product_yarn_category_tid';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['operator_id'] = 'field_product_yarn_category_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['label'] = 'Категория';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['operator'] = 'field_product_yarn_category_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['identifier'] = 'category';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_category_tid']['vocabulary'] = 'tags';
+  /* Критерий фильтра: Содержимое: Length (field_product_yarn_length) */
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['id'] = 'field_product_yarn_length_tid';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['table'] = 'field_data_field_product_yarn_length';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['field'] = 'field_product_yarn_length_tid';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator_id'] = 'field_product_yarn_length_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['label'] = 'Длина';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator'] = 'field_product_yarn_length_tid_op';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'length';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
+  /* Критерий фильтра: Commerce Товар: Recommended (field_product_recommended) */
+  $handler->display->display_options['filters']['field_product_recommended_value']['id'] = 'field_product_recommended_value';
+  $handler->display->display_options['filters']['field_product_recommended_value']['table'] = 'field_data_field_product_recommended';
+  $handler->display->display_options['filters']['field_product_recommended_value']['field'] = 'field_product_recommended_value';
+  $handler->display->display_options['filters']['field_product_recommended_value']['value'] = array(
     1 => '1',
   );
-  $handler->display->display_options['path'] = 'products/sale/yarn';
+  $handler->display->display_options['path'] = 'recommended/yarn';
 
-  /* Display: Latest updated yarn block */
-  $handler = $view->new_display('block', 'Latest updated yarn block', 'latest_updated_products');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Последнее обновление';
-  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
-  $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'ещё';
+  /* Display: relative yarn */
+  $handler = $view->new_display('block', 'relative yarn', 'relative_yarn');
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['footer'] = FALSE;
-  /* Подвал: Глобальный: Текстовое поле */
-  $handler->display->display_options['footer']['area']['id'] = 'area';
-  $handler->display->display_options['footer']['area']['table'] = 'views';
-  $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<a href=\'yarn/new\'>More</a>';
-  $handler->display->display_options['footer']['area']['format'] = 'full_html';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Поле: Commerce Товар: ID товара */
-  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
-  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
-  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
-  $handler->display->display_options['fields']['product_id']['label'] = '';
-  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
-  /* Поле: Содержимое: Путь */
-  $handler->display->display_options['fields']['path']['id'] = 'path';
-  $handler->display->display_options['fields']['path']['table'] = 'node';
-  $handler->display->display_options['fields']['path']['field'] = 'path';
-  $handler->display->display_options['fields']['path']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['fields']['path']['label'] = '';
-  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Поле: Commerce Товар: Картинка */
-  $handler->display->display_options['fields']['field_yarn_image']['id'] = 'field_yarn_image';
-  $handler->display->display_options['fields']['field_yarn_image']['table'] = 'field_data_field_yarn_image';
-  $handler->display->display_options['fields']['field_yarn_image']['field'] = 'field_yarn_image';
-  $handler->display->display_options['fields']['field_yarn_image']['label'] = '';
-  $handler->display->display_options['fields']['field_yarn_image']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_yarn_image']['alter']['path'] = '[path]?id=[product_id]';
-  $handler->display->display_options['fields']['field_yarn_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_yarn_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_yarn_image']['settings'] = array(
-    'image_style' => 'thumbnail',
-    'image_link' => '',
-  );
-  $handler->display->display_options['fields']['field_yarn_image']['delta_offset'] = '0';
-  /* Поле: Commerce Товар: Цвет */
-  $handler->display->display_options['fields']['field_yarn_color']['id'] = 'field_yarn_color';
-  $handler->display->display_options['fields']['field_yarn_color']['table'] = 'field_data_field_yarn_color';
-  $handler->display->display_options['fields']['field_yarn_color']['field'] = 'field_yarn_color';
-  $handler->display->display_options['fields']['field_yarn_color']['label'] = '';
-  $handler->display->display_options['fields']['field_yarn_color']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_yarn_color']['alter']['path'] = '[path]?id=[product_id]';
-  $handler->display->display_options['fields']['field_yarn_color']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_yarn_color']['type'] = 'taxonomy_term_reference_plain';
-  /* Поле: Commerce Товар: Price */
-  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['label'] = '';
-  $handler->display->display_options['fields']['commerce_price']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
-    'calculation' => '0',
-  );
-  /* Поле: Commerce Товар: Форма добавления в корзину */
-  $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
-  $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
-  $handler->display->display_options['fields']['add_to_cart_form']['field'] = 'add_to_cart_form';
-  $handler->display->display_options['fields']['add_to_cart_form']['label'] = '';
-  $handler->display->display_options['fields']['add_to_cart_form']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['add_to_cart_form']['show_quantity'] = 0;
-  $handler->display->display_options['fields']['add_to_cart_form']['default_quantity'] = '1';
-  $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
-  $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
-  $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Критерий сортировки: Содержимое: Дата обновления */
-  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['table'] = 'node';
-  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['changed']['granularity'] = 'minute';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Контекстный фильтр: Содержимое: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['exception']['title'] = 'Все';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
@@ -429,35 +451,14 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
 
-  /* Display: Latest updated yarn page */
-  $handler = $view->new_display('page', 'Latest updated yarn page', 'page_1');
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Критерий сортировки: Содержимое: Дата обновления */
-  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['table'] = 'node';
-  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['changed']['granularity'] = 'minute';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  $handler->display->display_options['path'] = 'yarn/new';
-
-  /* Display: Recommended yarn */
-  $handler = $view->new_display('block', 'Recommended yarn', 'recommended_yarn_block');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Recommended yarn';
+  /* Display: recommended block */
+  $handler = $view->new_display('block', 'recommended block', 'block_recommended');
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '6';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
@@ -467,16 +468,18 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'yarn' => 'yarn',
   );
-  /* Критерий фильтра: Commerce Товар: Recommended (field_recommended) */
-  $handler->display->display_options['filters']['field_recommended_value']['id'] = 'field_recommended_value';
-  $handler->display->display_options['filters']['field_recommended_value']['table'] = 'field_data_field_recommended';
-  $handler->display->display_options['filters']['field_recommended_value']['field'] = 'field_recommended_value';
-  $handler->display->display_options['filters']['field_recommended_value']['value'] = array(
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Критерий фильтра: Commerce Товар: Recommended (field_product_recommended) */
+  $handler->display->display_options['filters']['field_product_recommended_value']['id'] = 'field_product_recommended_value';
+  $handler->display->display_options['filters']['field_product_recommended_value']['table'] = 'field_data_field_product_recommended';
+  $handler->display->display_options['filters']['field_product_recommended_value']['field'] = 'field_product_recommended_value';
+  $handler->display->display_options['filters']['field_product_recommended_value']['value'] = array(
     1 => '1',
   );
-  $translatables['relative_products'] = array(
+  $handler->display->display_options['filters']['field_product_recommended_value']['group'] = 1;
+  $translatables['products_yarn'] = array(
     t('Master'),
-    t('Relative products'),
+    t('Products yarn'),
     t('ещё'),
     t('Применить'),
     t('Сбросить'),
@@ -487,25 +490,23 @@ function mirnitok_yarn_views_default_views() {
     t('- Все -'),
     t('Пропустить'),
     t('« первая'),
-    t('‹ предыдущая'),
-    t('следующая ›'),
+    t('‹'),
+    t('›'),
     t('последняя »'),
     t('Материал referencing products from field_product_variations'),
-    t('Все'),
+    t('[title] ([field_yarn_color])'),
+    t('Бренд'),
     t('Цвет'),
-    t('Relative yarn products'),
-    t('Products yarn'),
+    t('Вес'),
+    t('Категория'),
     t('Длина'),
-    t('Products needles'),
-    t('Products sale yarn'),
-    t('Распродажа'),
-    t('Latest updated yarn block'),
-    t('Последнее обновление'),
-    t('<a href=\'yarn/new\'>More</a>'),
-    t('Latest updated yarn page'),
+    t('Yarn products'),
     t('Recommended yarn'),
+    t('relative yarn'),
+    t('Все'),
+    t('recommended block'),
   );
-  $export['relative_products'] = $view;
+  $export['products_yarn'] = $view;
 
   $view = new view();
   $view->name = 'taxonomy_list_of_term';
@@ -617,511 +618,6 @@ function mirnitok_yarn_views_default_views() {
     t('By brand'),
   );
   $export['taxonomy_list_of_term'] = $view;
-
-  $view = new view();
-  $view->name = 'yarn_displays_list';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'node';
-  $view->human_name = 'Yarn displays list';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Yarn displays list';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'ещё';
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
-  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
-  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
-  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Элементов на страницу';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
-  $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
-  $handler->display->display_options['pager']['options']['tags']['first'] = '« первая';
-  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ предыдущая';
-  $handler->display->display_options['pager']['options']['tags']['next'] = 'следующая ›';
-  $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'node';
-  /* Поле: Содержимое: Заголовок */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Критерий сортировки: Содержимое: Дата публикации */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Критерий фильтра: Содержимое: Опубликовано */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Критерий фильтра: Содержимое: Тип */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'yarn_display' => 'yarn_display',
-  );
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'yarn-list';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Yarn list';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['yarn_displays_list'] = array(
-    t('Master'),
-    t('Yarn displays list'),
-    t('ещё'),
-    t('Применить'),
-    t('Сбросить'),
-    t('Сортировать по'),
-    t('По возрастанию'),
-    t('По убыванию'),
-    t('Элементов на страницу'),
-    t('- Все -'),
-    t('Пропустить'),
-    t('« первая'),
-    t('‹ предыдущая'),
-    t('следующая ›'),
-    t('последняя »'),
-    t('Page'),
-  );
-  $export['yarn_displays_list'] = $view;
-
-  $view = new view();
-  $view->name = 'yarn_list';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'node';
-  $view->human_name = 'Yarn list';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'ещё';
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['distinct'] = TRUE;
-  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
-  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
-  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
-  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['bef'] = array(
-    'general' => array(
-      'allow_secondary' => 0,
-      'secondary_label' => 'Advanced options',
-    ),
-    'field_product_yarn_brand_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_length_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_category_tid_1' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_weight_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-  );
-  $handler->display->display_options['pager']['type'] = 'mini';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '1';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Элементов на страницу';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Все -';
-  $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Пропустить';
-  $handler->display->display_options['pager']['options']['tags']['first'] = '« первая';
-  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹';
-  $handler->display->display_options['pager']['options']['tags']['next'] = '›';
-  $handler->display->display_options['pager']['options']['tags']['last'] = 'последняя »';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'node';
-  /* Поведение при отсутствии результатов: Глобальный: Текстовое поле */
-  $handler->display->display_options['empty']['area']['id'] = 'area';
-  $handler->display->display_options['empty']['area']['table'] = 'views';
-  $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'No match found';
-  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-  /* Поле: Содержимое: Заголовок */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Критерий сортировки: Содержимое: Дата публикации */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Критерий фильтра: Содержимое: Опубликовано */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Критерий фильтра: Содержимое: Тип */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'yarn_display' => 'yarn_display',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Критерий фильтра: Содержимое: Brand (field_product_yarn_brand) */
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['id'] = 'field_product_yarn_brand_tid';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['table'] = 'field_data_field_product_yarn_brand';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['field'] = 'field_product_yarn_brand_tid';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'field_product_yarn_brand_tid';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['vocabulary'] = 'brand';
-  /* Критерий фильтра: Содержимое: Length (field_product_yarn_length) */
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['id'] = 'field_product_yarn_length_tid';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['table'] = 'field_data_field_product_yarn_length';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['field'] = 'field_product_yarn_length_tid';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator_id'] = 'field_product_yarn_length_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['label'] = 'Длина';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator'] = 'field_product_yarn_length_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'field_product_yarn_length_tid';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
-  /* Критерий фильтра: Содержимое: Category (field_product_yarn_category) */
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['id'] = 'field_product_yarn_category_tid_1';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['table'] = 'field_data_field_product_yarn_category';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['field'] = 'field_product_yarn_category_tid';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator_id'] = 'field_product_yarn_category_tid_1_op';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['label'] = 'Категория';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator'] = 'field_product_yarn_category_tid_1_op';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['identifier'] = 'field_product_yarn_category_tid_1';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['vocabulary'] = 'tags';
-  /* Критерий фильтра: Содержимое: Weight (field_product_yarn_weight) */
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['id'] = 'field_product_yarn_weight_tid';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['table'] = 'field_data_field_product_yarn_weight';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['field'] = 'field_product_yarn_weight_tid';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator_id'] = 'field_product_yarn_weight_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['label'] = 'Вес';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator'] = 'field_product_yarn_weight_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'field_product_yarn_weight_tid';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['vocabulary'] = 'weight';
-
-  /* Display: Yarn */
-  $handler = $view->new_display('page', 'Yarn', 'page');
-  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
-  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Применить';
-  $handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Сбросить';
-  $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Сортировать по';
-  $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'По возрастанию';
-  $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'По убыванию';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
-  $handler->display->display_options['exposed_form']['options']['bef'] = array(
-    'general' => array(
-      'allow_secondary' => 0,
-      'secondary_label' => 'Advanced options',
-    ),
-    'field_product_yarn_brand_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_length_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_category_tid_1' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_product_yarn_weight_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-    'field_yarn_color_tid' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 1,
-        'is_secondary' => 0,
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-          ),
-        ),
-      ),
-    ),
-  );
-  $handler->display->display_options['exposed_block'] = TRUE;
-  $handler->display->display_options['defaults']['relationships'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Критерий фильтра: Содержимое: Опубликовано */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Критерий фильтра: Содержимое: Тип */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'yarn_display' => 'yarn_display',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Критерий фильтра: Содержимое: Brand (field_product_yarn_brand) */
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['id'] = 'field_product_yarn_brand_tid';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['table'] = 'field_data_field_product_yarn_brand';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['field'] = 'field_product_yarn_brand_tid';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator_id'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['label'] = 'Бренд';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['operator'] = 'field_product_yarn_brand_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['identifier'] = 'brand';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_brand_tid']['vocabulary'] = 'brand';
-  /* Критерий фильтра: Содержимое: Length (field_product_yarn_length) */
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['id'] = 'field_product_yarn_length_tid';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['table'] = 'field_data_field_product_yarn_length';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['field'] = 'field_product_yarn_length_tid';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator_id'] = 'field_product_yarn_length_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['label'] = 'Длина';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['operator'] = 'field_product_yarn_length_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['identifier'] = 'length';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_length_tid']['vocabulary'] = 'length';
-  /* Критерий фильтра: Содержимое: Category (field_product_yarn_category) */
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['id'] = 'field_product_yarn_category_tid_1';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['table'] = 'field_data_field_product_yarn_category';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['field'] = 'field_product_yarn_category_tid';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator_id'] = 'field_product_yarn_category_tid_1_op';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['label'] = 'Категория';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['operator'] = 'field_product_yarn_category_tid_1_op';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['identifier'] = 'category';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_category_tid_1']['vocabulary'] = 'tags';
-  /* Критерий фильтра: Содержимое: Weight (field_product_yarn_weight) */
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['id'] = 'field_product_yarn_weight_tid';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['table'] = 'field_data_field_product_yarn_weight';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['field'] = 'field_product_yarn_weight_tid';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator_id'] = 'field_product_yarn_weight_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['label'] = 'Вес';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['operator'] = 'field_product_yarn_weight_tid_op';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['identifier'] = 'weight';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_product_yarn_weight_tid']['vocabulary'] = 'weight';
-  $handler->display->display_options['path'] = 'yarn';
-  $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Yarn';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['yarn_list'] = array(
-    t('Master'),
-    t('ещё'),
-    t('Применить'),
-    t('Сбросить'),
-    t('Сортировать по'),
-    t('По возрастанию'),
-    t('По убыванию'),
-    t('Элементов на страницу'),
-    t('- Все -'),
-    t('Пропустить'),
-    t('« первая'),
-    t('‹'),
-    t('›'),
-    t('последняя »'),
-    t('No match found'),
-    t('Бренд'),
-    t('Длина'),
-    t('Категория'),
-    t('Вес'),
-    t('Yarn'),
-  );
-  $export['yarn_list'] = $view;
 
   return $export;
 }

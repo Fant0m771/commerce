@@ -42,7 +42,6 @@ features[variable][] = menu_parent_needles_display
 features[variable][] = node_options_needles_display
 features[variable][] = node_preview_needles_display
 features[variable][] = node_submitted_needles_display
-features[views_view][] = needles_list
 features[views_view][] = new_products
 features_exclude[dependencies][commerce_cart] = commerce_cart
 features_exclude[dependencies][commerce_product_reference] = commerce_product_reference

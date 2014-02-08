@@ -519,23 +519,20 @@ div.horizontal-tabs {
   clear: both;
 }
 
-#views-exposed-form-yarn-list-page .views-exposed-widget,
-#views-exposed-form-yarn-list-page-1 .views-exposed-widget {
+.views-exposed-form .views-exposed-widget {
   display: block;
   float: none;
   font-size: 1.2em;
   margin-bottom: 10px;
 }
 
-#views-exposed-form-yarn-list-page .views-exposed-widget fieldset,
-#views-exposed-form-yarn-list-page-1 .views-exposed-widget fieldset {
+.views-exposed-form .views-exposed-widget fieldset {
   padding: 0;
   border: 0;
   margin: 0;
 }
 
-#views-exposed-form-yarn-list-page .views-exposed-widget fieldset label,
-#views-exposed-form-yarn-list-page-1 .views-exposed-widget fieldset label {
+.views-exposed-form fieldset label {
   font-size: 1em;
 }
 
@@ -1259,27 +1256,28 @@ select#edit-customer-profile-shipping-addressbook {
   display: none;
 }
 
-.view-display-id-products_slider.view-relative-products .views-row,
-.view-id-relative_products .views-row {
+.view-products-yarn.view-id-products_yarn .views-row,
+.view-id-products_yarn .views-row {
   width: 33%;
   float: left;
   position: relative;
   margin-bottom: 1em;
 }
 
-.view-display-id-products_slider.view-relative-products div.views-field,
-.view-id-relative_products div.views-field {
+.view-products-yarn.view-id-products_yarn div.views-field,
+.view-id-products_yarn div.views-field {
   text-align: center;
 }
 
-.view-display-id-products_slider.view-relative-products div.views-field img,
-.view-id-relative_products div.views-field img {
+.view-products-yarn.view-id-products_yarn div.views-field img,
+.view-id-products_yarn div.views-field img {
   width: 90%;
   max-width: 170px;
+  height: auto;
 }
 
-.view-display-id-products_slider .view-footer,
-.view-id-relative_products .view-footer {
+.view-products-yarn.view-id-products_yarn .view-footer,
+.view-id-products_yarn .view-footer {
   clear: both;
 }
 
