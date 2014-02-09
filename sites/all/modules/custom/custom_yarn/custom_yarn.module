@@ -1,28 +1,10 @@
 <?php
- 
-/**
- *  Implements hook_form_alter()
- */
- /*
-function custom_yarn_form_alter(&$form, &$form_state, $form_id) {
-  if (strpos($form_id,'commerce_cart_add_to_cart_form_') !== FALSE) {
-     $form['submit']['#value'] = theme("some_text", array("ptr" => " ", 'prefix' => '&copy;'));
-  }
-}
-*/
 
 /**
  * Implements hook_theme().
  */
 function custom_yarn_theme() {
    $output = array(
-    'some_text' => array(
-      'template' => "custom_yarn",
-      'variables' => array(
-        'ptr' => NULL,
-        'prefix' => NULL,
-      ),
-    ),
     'form_add_to_cart' => array(
       'render element' => 'form',
       'template' => "templates/form_add_to_cart_form",
@@ -56,12 +38,15 @@ function custom_yarn_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
   if (strstr($form_id, "commerce_cart_add_to_cart_form_") != "" && arg(0) != "user") {
-    if (module_exists("commerce_ajax_basket_link")) {
+    //if (module_exists("commerce_ajax_basket_link")) {
+
       $form['submit']["#ajax"] = array(
         'callback' => 'custom_yarn_basket_link_ajax_cart_form_add_to_cart_ajax_callback',
         'effect' => 'fade',
       );
-    }
+
+      $form['submit']['#id'] = 'edit-submit--' . $form['product_id']['#value'];
+    //}
   }
   elseif ($form_id == "user_login_block") {
     $form['name']['#attributes'] = array(
@@ -88,10 +73,10 @@ function custom_yarn_basket_link_ajax_cart_form_add_to_cart_ajax_callback(&$form
   $submit_id = $form['submit']['#id'];
 
   // Basket items into top nav.
-  $output = commerce_ajax_basket_link_static_output();
-  $output['#markup'] = '<div class="content clearfix">' . $output['#markup'] . '</div>';
+  //$output = commerce_ajax_basket_link_static_output();
+  //$output['#markup'] = '<div class="content clearfix">' . $output['#markup'] . '</div>';
   $commands[] = ajax_command_replace('#' . $submit_id, '<div class="item-into-cart">' . l(t('Item added to basket'), 'cart') . '</div>');
-  $commands[] = ajax_command_replace('#block-commerce-ajax-basket-link-commerce-ajax-basket-link .content', $output['#markup']);
+  //$commands[] = ajax_command_replace('#block-commerce-ajax-basket-link-commerce-ajax-basket-link .content', $output['#markup']);
   $commands[] = ajax_command_invoke('.block-commerce-cart .block-refresh-button', 'click');
   $commands[] = ajax_command_replace('.messages', theme('status_messages'));
 

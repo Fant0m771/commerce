@@ -1172,11 +1172,6 @@ select#edit-customer-profile-shipping-addressbook {
   margin-top: 10px;
 }
 
-#block-views-taxonomy-list-of-term-block .block-title {
-  text-align: center;
-  text-transform: uppercase;
-}
-
 #block-views-taxonomy-list-of-term-block ul {
   list-style: none;
 }
@@ -1258,10 +1253,15 @@ select#edit-customer-profile-shipping-addressbook {
 
 .view-products-yarn.view-id-products_yarn .views-row,
 .view-id-products_yarn .views-row {
-  width: 33%;
+  width: 32.333%;
   float: left;
   position: relative;
   margin-bottom: 1em;
+}
+
+.view-products-yarn.view-id-products_yarn .views-row.views-row-even,
+.view-id-products_yarn .views-row.views-row-even {
+  margin: 0 1.5%;
 }
 
 .view-products-yarn.view-id-products_yarn div.views-field,
@@ -1271,8 +1271,8 @@ select#edit-customer-profile-shipping-addressbook {
 
 .view-products-yarn.view-id-products_yarn div.views-field img,
 .view-id-products_yarn div.views-field img {
-  width: 90%;
-  max-width: 170px;
+  width: 100%;
+  max-width: 275px;
   height: auto;
 }
 
@@ -1285,4 +1285,55 @@ select#edit-customer-profile-shipping-addressbook {
   padding-top: 4px;
 }
 
+section .block-views {
+  border: 1px solid #F3F3F3;
+  margin-bottom: 1em;
+  padding: 10px;
+}
+
+section .block-views ul {
+  margin-bottom: 0;
+}
+
+section .block-views .block-title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.view-products-yarn.view-id-products_yarn .rowed {
+  clear: both;
+}
+
+.view-products-yarn.view-id-products_yarn .overlay {
+  position: relative;
+}
+
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  padding: 5%;
+  background: url("../images/black-transparent50.png");
+  color: #FFF;
+}
+
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .views-field-field-product-yarn-weight {
+  clear: both;
+  width: 100%;
+  display: block;
+}
+
+.view-products-yarn.view-id-products_yarn .attributes div.views-field,
+.view-id-products_yarn .attributes div.views-field {
+  text-align: left;
+}
+
+.view-products-yarn.view-id-products_yarn .item-into-cart {
+  width: auto;
+  margin-top: 8px;
+}
+
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .attributes .field-content {
+  display: inline-block;
+}
 

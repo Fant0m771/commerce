@@ -13,6 +13,7 @@ function theme_yarn_alters_products($vars) {
   $output = '';
   if (isset($fields[$field_name])) {
     $output .= $fields[$field_name]->wrapper_prefix;
+    $output .= $fields[$field_name]->label_html;
     $output .= $fields[$field_name]->content;
     $output .= $fields[$field_name]->wrapper_suffix;
   }

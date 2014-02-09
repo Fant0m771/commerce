@@ -168,6 +168,23 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_yarn_color']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_yarn_color']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_yarn_color']['type'] = 'i18n_taxonomy_term_reference_plain';
+  /* Поле: Содержимое: Length */
+  $handler->display->display_options['fields']['field_product_yarn_length']['id'] = 'field_product_yarn_length';
+  $handler->display->display_options['fields']['field_product_yarn_length']['table'] = 'field_data_field_product_yarn_length';
+  $handler->display->display_options['fields']['field_product_yarn_length']['field'] = 'field_product_yarn_length';
+  $handler->display->display_options['fields']['field_product_yarn_length']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['field_product_yarn_length']['label'] = 'Длина';
+  $handler->display->display_options['fields']['field_product_yarn_length']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_product_yarn_length']['type'] = 'i18n_taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_product_yarn_length']['delta_offset'] = '0';
+  /* Поле: Содержимое: Weight */
+  $handler->display->display_options['fields']['field_product_yarn_weight']['id'] = 'field_product_yarn_weight';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['table'] = 'field_data_field_product_yarn_weight';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['field'] = 'field_product_yarn_weight';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['label'] = 'Вес';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['type'] = 'i18n_taxonomy_term_reference_plain';
   /* Поле: Содержимое: Заголовок */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -494,12 +511,12 @@ function mirnitok_yarn_views_default_views() {
     t('›'),
     t('последняя »'),
     t('Материал referencing products from field_product_variations'),
+    t('Длина'),
+    t('Вес'),
     t('[title] ([field_yarn_color])'),
     t('Бренд'),
     t('Цвет'),
-    t('Вес'),
     t('Категория'),
-    t('Длина'),
     t('Yarn products'),
     t('Recommended yarn'),
     t('relative yarn'),
@@ -604,7 +621,7 @@ function mirnitok_yarn_views_default_views() {
   /* Display: Taxonomy brand list */
   $handler = $view->new_display('block', 'Taxonomy brand list', 'block');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'By brand';
+  $handler->display->display_options['title'] = 'По брендам';
   $translatables['taxonomy_list_of_term'] = array(
     t('Master'),
     t('ещё'),
@@ -615,7 +632,7 @@ function mirnitok_yarn_views_default_views() {
     t('По убыванию'),
     t('.'),
     t('Taxonomy brand list'),
-    t('By brand'),
+    t('По брендам'),
   );
   $export['taxonomy_list_of_term'] = $view;
 

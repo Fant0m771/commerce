@@ -12,7 +12,8 @@ function yarn_alters_theme($existing, $type, $theme, $path) {
     'yarn_alters_products' => array(
       'file' => 'yarn_alters.theme.inc',
       'variables' => array(
-        'fields' => NULL,
+        'fields'     => NULL,
+        'label'      => NULL,
         'field_name' => NULL,
       ),
     ),
