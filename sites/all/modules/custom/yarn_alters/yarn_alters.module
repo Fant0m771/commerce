@@ -27,7 +27,6 @@ function yarn_alters_theme($existing, $type, $theme, $path) {
  * @param $view
  */
 function yarn_alters_views_pre_render(&$view) {
-
   switch($view->name) {
     case 'commerce_cart_block':
     case 'commerce_cart_form':
