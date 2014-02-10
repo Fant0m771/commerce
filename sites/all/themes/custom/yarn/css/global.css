@@ -12,7 +12,7 @@
 }
 
 body {
-  font-family: "Myriad Pro",Arial,Helvetica,Tahoma,sans-serif;
+  font-family: Arial,Helvetica,Tahoma,sans-serif;
   font-size: 0.75em;
   line-height: 1;
   background: url("../images/bg-body.png") repeat scroll left top transparent;
@@ -22,7 +22,7 @@ body {
 h1, h2, h3, h4, h5, h6,
 button, input[type="reset"], input[type="submit"], input[type="button"],
 #breadcrumb {
-  font-family: "Myriad Pro",Arial,Helvetica,Tahoma,sans-serif;
+  font-family: Arial,Helvetica,Tahoma,sans-serif;
   color: #666666;
   font-weight: normal;
 }
@@ -320,7 +320,7 @@ input[type="text"], input[type="password"], input.text, input.title, textarea {
   background-color: #FFFFFF;
   border: 1px solid #C1C1C1;
   color: #000000;
-  font: 600 1em/1.4 "Myriad Pro",Arial,Helvetica,Tahoma,sans-serif;
+  font: 600 1em/1.4 Arial,Helvetica,Tahoma,sans-serif;
 }
 
 select#edit-attributes-product-select,
@@ -1306,15 +1306,15 @@ section .block-views .block-title {
 
 .view-products-yarn.view-id-products_yarn .overlay {
   position: relative;
+  overflow: hidden;
 }
 
 .view-products-yarn.view-id-products_yarn .overlay .overlay-dark {
   position: absolute;
   bottom: 0;
-  width: 90%;
-  padding: 5%;
   background: url("../images/black-transparent50.png");
   color: #FFF;
+  width: 100%;
 }
 
 .view-products-yarn.view-id-products_yarn .overlay .overlay-dark .views-field-field-product-yarn-weight {
@@ -1333,7 +1333,17 @@ section .block-views .block-title {
   margin-top: 8px;
 }
 
-.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .attributes .field-content {
-  display: inline-block;
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .attributes .field-content a {
+  padding: 3% 5% 0 5%;
+  color: #FFF;
+  text-decoration: none;
+  display: block;
 }
 
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .attributes .field-content a.first {
+  padding: 5% 5% 0 5%;
+}
+
+.view-products-yarn.view-id-products_yarn .overlay .overlay-dark .attributes .field-content a.last {
+  padding-bottom: 5%;
+}

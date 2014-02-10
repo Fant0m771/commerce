@@ -166,6 +166,7 @@ function custom_yarn_popup_attributes_alter(&$attributes){
  *  Implements hook_node_presave.
  * @param object $node
  */
+/* commited 10.02.14 no longer needed
 function custom_yarn_node_presave($node) {
 
   $fields = FALSE;
@@ -194,10 +195,11 @@ function custom_yarn_node_presave($node) {
     }
   }
 }
-
+*/
 /**
  * check if display have sale product
  */
+/*
 function _custom_yarn_check_sale($products) {
   foreach ($products as $product) {
     $entity[] = $product['product_id'];
@@ -222,3 +224,4 @@ function _custom_yarn_get_product_image($entity, $produst_type) {
     ->fetchField();
   return $fid;
 }
+*/

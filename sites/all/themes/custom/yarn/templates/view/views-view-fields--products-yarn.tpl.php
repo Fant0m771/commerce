@@ -32,13 +32,7 @@
   <div class="overlay-dark">
     <div class="attributes">
       <?php
-        print  theme('yarn_alters_products', array('fields' => $fields, 'field_name' => 'field_product_yarn_weight', 'label' => t('Weight: ')));
-      ?>
-    </div>
-
-    <div class="attributes">
-      <?php
-        print theme('yarn_alters_products', array('fields' => $fields, 'field_name' => 'field_product_yarn_length', 'label' => t('Length: ')));
+        print theme('yarn_alters_products', array('fields' => $fields, 'field_name' => 'nothing'));
       ?>
     </div>
 </div>

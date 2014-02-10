@@ -19,3 +19,69 @@ function yarn_alters_theme($existing, $type, $theme, $path) {
     ),
   );
 }
+
+/**
+ * Fix cart product title without link path,
+ * for some cases title has not link to product.
+ * Implements hook_views_pre_render().
+ * @param $view
+ */
+function yarn_alters_views_pre_render(&$view) {
+
+  switch($view->name) {
+    case 'commerce_cart_block':
+    case 'commerce_cart_form':
+    foreach($view->result as $product) {
+      if (empty($product->field_commerce_display_path)) {
+        $prod_obj = commerce_product_load_by_sku($product->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->line_item_label);
+        $product->field_commerce_display_path = _yarn_alters_get_product_display_path($prod_obj);
+      }
+    }
+    break;
+  }
+}
+
+/**
+ * Populate display product path.
+ * @param string $path
+ * @return array
+ */
+function populate_empty_product_title_path($path) {
+  $populated_path = array(
+    array(
+      'rendered' => array(
+        '#markup' => $path,
+        '#access' => TRUE,
+      ),
+      'raw' => array(
+        'value' => $path,
+        'format' => NULL,
+        'safe_value' => $path,
+      ),
+    ),
+  );
+  return $populated_path;
+}
+
+/**
+ * Get product display path by product id
+ * @param object $product
+ *   product object
+ */
+function _yarn_alters_get_product_display_path($product = NULL) {
+  if (!$product) {
+    return 0;
+  }
+  $type = $product->type;
+  $prod_id = $product->product_id;
+
+  $entity_id = db_select('field_revision_field_product_variations', 'var')
+    ->fields('var', array('entity_id'))
+    ->condition('var.field_product_variations_product_id', $prod_id)
+    ->condition('var.bundle', $type . '_display')
+    ->execute()
+    ->fetchField();
+
+  $product_path = $entity_id > 0 ? drupal_get_path_alias('node/' . $entity_id ) . "?id=" . $prod_id : NULL;
+  return populate_empty_product_title_path($product_path);
+}
