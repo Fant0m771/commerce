@@ -54,9 +54,10 @@ function mirnitok_yarn_field_group_info() {
       0 => 'field_product_yarn_brand',
       1 => 'field_product_yarn_length',
       2 => 'field_product_yarn_weight',
-      3 => 'product:sku',
-      4 => 'product:field_yarn_color',
-      5 => 'product:field_yarn_tone',
+      3 => 'field_product_yarn_consist',
+      4 => 'product:sku',
+      5 => 'product:field_yarn_color',
+      6 => 'product:field_yarn_tone',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -108,11 +109,11 @@ function mirnitok_yarn_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tabs',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
-      0 => 'group_yarn_conditions',
-      1 => 'group_yarn_description',
-      2 => 'group_yarn_comments',
+      0 => 'group_yarn_comments',
+      1 => 'group_yarn_conditions',
+      2 => 'group_yarn_description',
     ),
     'format_type' => 'htabs',
     'format_settings' => array(

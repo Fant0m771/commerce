@@ -38,15 +38,16 @@ function custom_yarn_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
   if (strstr($form_id, "commerce_cart_add_to_cart_form_") != "" && arg(0) != "user") {
-    //if (module_exists("commerce_ajax_basket_link")) {
 
+    if (module_exists("commerce_ajax_basket_link")) {
+      unset($form['attributes']);
       $form['submit']["#ajax"] = array(
         'callback' => 'custom_yarn_basket_link_ajax_cart_form_add_to_cart_ajax_callback',
         'effect' => 'fade',
       );
 
       $form['submit']['#id'] = 'edit-submit--' . $form['product_id']['#value'];
-    //}
+    }
   }
   elseif ($form_id == "user_login_block") {
     $form['name']['#attributes'] = array(

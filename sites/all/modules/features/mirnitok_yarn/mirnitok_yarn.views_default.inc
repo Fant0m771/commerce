@@ -173,8 +173,10 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_product_yarn_length']['table'] = 'field_data_field_product_yarn_length';
   $handler->display->display_options['fields']['field_product_yarn_length']['field'] = 'field_product_yarn_length';
   $handler->display->display_options['fields']['field_product_yarn_length']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['fields']['field_product_yarn_length']['label'] = 'Длина';
+  $handler->display->display_options['fields']['field_product_yarn_length']['label'] = '';
+  $handler->display->display_options['fields']['field_product_yarn_length']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_product_yarn_length']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_product_yarn_length']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_product_yarn_length']['type'] = 'i18n_taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_product_yarn_length']['delta_offset'] = '0';
   /* Поле: Содержимое: Weight */
@@ -182,9 +184,20 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['field_product_yarn_weight']['table'] = 'field_data_field_product_yarn_weight';
   $handler->display->display_options['fields']['field_product_yarn_weight']['field'] = 'field_product_yarn_weight';
   $handler->display->display_options['fields']['field_product_yarn_weight']['relationship'] = 'field_product_variations';
-  $handler->display->display_options['fields']['field_product_yarn_weight']['label'] = 'Вес';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['label'] = '';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_product_yarn_weight']['alter']['path'] = '[path]?id=[product_id]';
+  $handler->display->display_options['fields']['field_product_yarn_weight']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_product_yarn_weight']['type'] = 'i18n_taxonomy_term_reference_plain';
+  /* Поле: Содержимое: Consist */
+  $handler->display->display_options['fields']['field_product_yarn_consist']['id'] = 'field_product_yarn_consist';
+  $handler->display->display_options['fields']['field_product_yarn_consist']['table'] = 'field_data_field_product_yarn_consist';
+  $handler->display->display_options['fields']['field_product_yarn_consist']['field'] = 'field_product_yarn_consist';
+  $handler->display->display_options['fields']['field_product_yarn_consist']['relationship'] = 'field_product_variations';
+  $handler->display->display_options['fields']['field_product_yarn_consist']['label'] = '';
+  $handler->display->display_options['fields']['field_product_yarn_consist']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_product_yarn_consist']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_product_yarn_consist']['type'] = 'taxonomy_term_reference_plain';
   /* Поле: Содержимое: Заголовок */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -218,6 +231,15 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
   $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  /* Поле: Глобальный: Пользовательский текст */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a class=\'first\' href=\'[path]?id=[product_id]\'>Length: [field_product_yarn_length]</a>
+<a href=\'[path]?id=[product_id]\'>Weight: [field_product_yarn_weight]</a>
+<a class=\'last\' href=\'[path]?id=[product_id]\'>Consist: [field_product_yarn_consist]</a>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'commerce_product';
@@ -459,6 +481,18 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  /* Контекстный фильтр: Commerce Товар: ID товара */
+  $handler->display->display_options['arguments']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['arguments']['product_id']['table'] = 'commerce_product';
+  $handler->display->display_options['arguments']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['arguments']['product_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['product_id']['exception']['title'] = 'Все';
+  $handler->display->display_options['arguments']['product_id']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['product_id']['default_argument_options']['code'] = '$_GET[id];';
+  $handler->display->display_options['arguments']['product_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['product_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['product_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['product_id']['not'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
@@ -511,12 +545,15 @@ function mirnitok_yarn_views_default_views() {
     t('›'),
     t('последняя »'),
     t('Материал referencing products from field_product_variations'),
-    t('Длина'),
-    t('Вес'),
     t('[title] ([field_yarn_color])'),
+    t('<a class=\'first\' href=\'[path]?id=[product_id]\'>Length: [field_product_yarn_length]</a>
+<a href=\'[path]?id=[product_id]\'>Weight: [field_product_yarn_weight]</a>
+<a class=\'last\' href=\'[path]?id=[product_id]\'>Consist: [field_product_yarn_consist]</a>'),
     t('Бренд'),
     t('Цвет'),
+    t('Вес'),
     t('Категория'),
+    t('Длина'),
     t('Yarn products'),
     t('Recommended yarn'),
     t('relative yarn'),

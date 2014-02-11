@@ -30,10 +30,9 @@ function commerce_fancy_attributes_form_field_ui_field_edit_form_alter(&$form, &
   $instance = $form['#instance'];
 
   // Add our "Rendered term" option for taxonomy_term attributes.
-  // @todo Support entityreference
   if (empty($form['locked']) && $instance['entity_type'] == 'commerce_product' &&
-    commerce_cart_field_attribute_eligible($field) && $field['type'] == 'taxonomy_term_reference') {
-    $form['instance']['commerce_cart_settings']['attribute_widget']['#options']['commerce_fancy_attributes'] = t('Rendered term');
+    commerce_cart_field_attribute_eligible($field) && ($field['type'] == 'taxonomy_term_reference' || $field['type'] == 'entityreference')) {
+    $form['instance']['commerce_cart_settings']['attribute_widget']['#options']['commerce_fancy_attributes'] = t('Rendered item');
   }
 }
 

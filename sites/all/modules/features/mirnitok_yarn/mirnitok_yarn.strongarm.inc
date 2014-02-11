@@ -86,6 +86,9 @@ function mirnitok_yarn_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -129,7 +132,7 @@ function mirnitok_yarn_strongarm() {
         ),
         'product:commerce_price' => array(
           'default' => array(
-            'weight' => '2',
+            'weight' => '1',
             'visible' => TRUE,
           ),
           'teaser' => array(
@@ -149,7 +152,7 @@ function mirnitok_yarn_strongarm() {
         ),
         'product:commerce_stock' => array(
           'default' => array(
-            'weight' => '4',
+            'weight' => '3',
             'visible' => TRUE,
           ),
           'teaser' => array(
@@ -183,7 +186,7 @@ function mirnitok_yarn_strongarm() {
             'visible' => TRUE,
           ),
           'default' => array(
-            'weight' => '4',
+            'weight' => '13',
             'visible' => FALSE,
           ),
         ),
@@ -193,7 +196,13 @@ function mirnitok_yarn_strongarm() {
             'visible' => TRUE,
           ),
           'default' => array(
-            'weight' => '5',
+            'weight' => '14',
+            'visible' => FALSE,
+          ),
+        ),
+        'product:field_product_recommended' => array(
+          'default' => array(
+            'weight' => '15',
             'visible' => FALSE,
           ),
         ),
