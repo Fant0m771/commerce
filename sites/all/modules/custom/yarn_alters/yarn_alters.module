@@ -84,3 +84,22 @@ function _yarn_alters_get_product_display_path($product = NULL) {
   $product_path = $entity_id > 0 ? drupal_get_path_alias('node/' . $entity_id ) . "?id=" . $prod_id : NULL;
   return populate_empty_product_title_path($product_path);
 }
+
+/**
+ * Implements hook_views_query_alter().
+ * @param $view
+ * @param $query
+ */
+function yarn_alters_views_query_alter(&$view, &$query) {
+  switch($view->current_display) {
+    case 'relative_yarn':
+      // Add condition show products except current product page.
+      $product_id = is_numeric($_GET['id']) ? $_GET['id'] : NULL;
+      $query->where[0]['conditions'][1] = array(
+        'field' => 'commerce_product.product_id',
+        'value' => array($product_id),
+        'operator' => 'NOT IN'
+      );
+      break;
+  }
+}

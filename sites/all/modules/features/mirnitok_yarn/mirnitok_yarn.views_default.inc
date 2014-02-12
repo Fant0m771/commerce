@@ -481,18 +481,6 @@ function mirnitok_yarn_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
-  /* Контекстный фильтр: Commerce Товар: ID товара */
-  $handler->display->display_options['arguments']['product_id']['id'] = 'product_id';
-  $handler->display->display_options['arguments']['product_id']['table'] = 'commerce_product';
-  $handler->display->display_options['arguments']['product_id']['field'] = 'product_id';
-  $handler->display->display_options['arguments']['product_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['product_id']['exception']['title'] = 'Все';
-  $handler->display->display_options['arguments']['product_id']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['product_id']['default_argument_options']['code'] = '$_GET[id];';
-  $handler->display->display_options['arguments']['product_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['product_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['product_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['product_id']['not'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Критерий фильтра: Commerce Товар: Тип */
